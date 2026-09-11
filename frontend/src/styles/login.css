@@ -1,0 +1,254 @@
+.login-page {
+  width: 100vw;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(3, 15, 35, 0.70),
+      rgba(3, 15, 35, 0.80)
+    ),
+    url("../assets/fondo.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand {
+  position: absolute;
+  top: 55px;
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brand-logo {
+  width: 320px;
+  height: auto;
+  display: block;
+  margin-top: -60px;
+  margin-left:-40px;
+
+}
+
+
+
+.hero-text {
+  position: absolute;
+  left: 45px;
+  top: 310px;
+  max-width: 370px;
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  line-height: 1.25;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  color: #c8d7ea;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.top-admin {
+  position: absolute;
+  top: 45px;
+  right: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/*
+Cambio de icons 
+*/
+.admin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-icon svg {
+  width: 24px;
+  height: 24px;
+}
+/* -+-+-+-+-++-+ */
+.top-admin:hover {
+  transform: scale(1.15);
+}
+
+.login-card {
+  position: absolute;
+  top: 175px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  padding: 28px 30px 34px;
+  border-radius: 29px;
+  background: rgba(5, 25, 55, 0.88);
+  border: 1px solid rgba(52, 137, 255, 0.75);
+  box-shadow: 0 0 35px rgba(0, 100, 255, 0.28);
+  text-align: center;
+}
+
+/* cambio de los icons */
+.lock-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.lock-icon svg {
+  width: 25px;
+  height: 25px;
+}
+/* -+-+-+-+-+-+-+- */
+.login-card h2 {
+  margin: 8px 0;
+  font-size: 20px;
+}
+
+.subtitle {
+  color: #c7d4e8;
+  margin-bottom: 28px;
+  font-size: 16px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  border-radius: 50px;
+  border: 1px solid #3b6fa8;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.login-card input::placeholder {
+  color: #9fb1c8;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #006ee6, #1688ff);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  background: linear-gradient(90deg, #005fd0, #007bff);
+}
+
+.error {
+  color: #ff6b6b;
+  margin-bottom: 12px;
+}
+
+.footer-login {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 15, 35, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #c8d7ea;
+  font-size: 15px;
+}
+/* Cambios nuevos de icons */
+.footer-login span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+/* -+-+-+-+-+ */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.admin-modal-card {
+  width: 360px;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(5, 25, 55, 0.96);
+  border: 1px solid #1d7cff;
+  box-shadow: 0 0 30px rgba(0, 115, 255, 0.4);
+  text-align: center;
+  position: relative;
+}
+
+.admin-modal-card h2 {
+  margin-bottom: 8px;
+}
+
+.admin-modal-card p {
+  color: #c7d4e8;
+  margin-bottom: 20px;
+}
+
+.admin-modal-card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #3b6fa8;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.admin-modal-card button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}

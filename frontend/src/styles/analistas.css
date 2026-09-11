@@ -1,0 +1,678 @@
+
+/* Página general*/
+
+.analistas-page {
+  min-height: 100vh;
+  padding: 25px;
+  background: linear-gradient(
+      rgba(1, 15, 35, 0.92),
+      rgba(1, 15, 35, 0.92)
+    ),
+    url("../assets/ecu.png");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+/* Encabezado principal y estado del sistema  */
+
+.analistas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.analistas-header h1 {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.estado-sistema {
+  color: #4ade80;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+/* Tarjeta del usuario conectado */
+
+.analista-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.analista-perfil {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #d1d5db, #6b7280);
+  font-size: 30px;
+}
+
+.analista-perfil h2 {
+  margin: 0;
+}
+
+.analista-perfil p {
+  margin: 5px 0 0;
+}
+
+.rol {
+  color: #22d3ee;
+  font-weight: 800;
+}
+
+.btn-logout {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.btn-logout:hover {
+  background: #b91c1c;
+}
+
+/* Contenedor principal sin menú lateral */
+
+.analistas-contenido,
+.analistas-contenido-sin-sidebar {
+  display: block;
+}
+
+.panel-principal,
+.panel-principal-completo {
+  width: 100%;
+  min-height: 560px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Botones de navegación interna */
+
+.analistas-vista-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.btn-volver-panel {
+  padding: 12px 18px;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #e0f2fe;
+  cursor: pointer;
+  font-weight: 800;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-volver-panel:hover {
+  background: rgba(14, 116, 144, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-volver-panel.secundario {
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.24);
+}
+
+/* Pantalla previa: seleccionar analistas activos / inactivos */
+
+.analistas-lista-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.analistas-lista-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 30px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 38%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 35, 70, 0.9));
+  border: 1px solid rgba(34, 211, 238, 0.22);
+}
+
+.analistas-lista-hero h2 {
+  margin: 0 0 10px;
+  color: #22d3ee;
+  font-size: 2rem;
+}
+
+.analistas-lista-hero p {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.analistas-lista-icono {
+  width: 90px;
+  height: 90px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4c1d95, #7c3aed);
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.35);
+  font-size: 42px;
+}
+
+.analistas-tipo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.analistas-tipo-card {
+  min-height: 150px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.96),
+    rgba(30, 41, 59, 0.9)
+  );
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.analistas-tipo-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(34, 211, 238, 0.45);
+}
+
+.analistas-tipo-icono {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.75);
+  font-size: 30px;
+}
+
+.analistas-tipo-card h3 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 1.35rem;
+}
+
+.analistas-tipo-card p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.analistas-tipo-card strong {
+  min-width: 54px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 116, 144, 0.35);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+/* Grupos de analistas: Operaciones / Tecnología */
+
+.analistas-grupos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.analistas-grupo {
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(34, 211, 238, 0.14);
+}
+
+.analistas-grupo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.analistas-grupo-header h3 {
+  margin: 0 0 6px;
+  color: #22d3ee;
+  font-size: 1.45rem;
+}
+
+.analistas-grupo-header p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.analistas-grupo-header span {
+  min-width: 48px;
+  height: 42px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 116, 144, 0.35);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  color: #22d3ee;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.analistas-grupo-vacio {
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px dashed rgba(148, 163, 184, 0.24);
+}
+
+.analistas-grupo-vacio p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+/* Tarjetas de analistas */
+
+.analistas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.analista-card {
+  width: auto;
+  min-height: 170px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.analista-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.analista-card-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.analista-card-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #d1d5db, #6b7280);
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.analista-card h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+.analista-card p {
+  margin: 4px 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.analista-detalle {
+  margin: 2px 0 !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+}
+
+.analista-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.badge-area {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: #22d3ee;
+  color: #020617;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.badge-operaciones {
+  background: #22d3ee;
+  color: #020617;
+}
+
+.badge-tecnologia {
+  background: #a78bfa;
+  color: #020617;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botones de acciones en tarjetas */
+
+.btn-editar,
+.btn-desactivar,
+.btn-reactivar {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-editar {
+  background: #2563eb;
+}
+
+.btn-editar:hover {
+  background: #1d4ed8;
+}
+
+.btn-desactivar {
+  background: #dc2626;
+}
+
+.btn-desactivar:hover {
+  background: #b91c1c;
+}
+
+.btn-reactivar {
+  background: #10b981;
+}
+
+.btn-reactivar:hover {
+  background: #059669;
+}
+
+/* Formulario de edición */
+
+.form-card {
+  max-width: 650px;
+  padding: 28px;
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.form-card h2 {
+  margin-top: 0;
+  color: #22d3ee;
+}
+
+.form-subtitle {
+  margin-bottom: 25px;
+  color: #94a3b8;
+}
+
+.form-analista {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #e5e7eb;
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #020617;
+  color: #ffffff;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #22d3ee;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.btn-cancelar {
+  background: #475569;
+}
+
+.btn-cancelar:hover {
+  background: #64748b;
+}
+
+.btn-guardar {
+  background: #10b981;
+}
+
+.btn-guardar:hover {
+  background: #059669;
+}
+
+/* Responsive */
+
+@media (max-width: 1100px) {
+  .analista-card {
+    width: 100%;
+  }
+
+  .analistas-tipo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .analistas-page {
+    padding: 18px;
+  }
+
+  .analistas-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .analistas-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .analista-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .analistas-lista-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .analistas-lista-icono {
+    width: 72px;
+    height: 72px;
+    font-size: 34px;
+  }
+
+  .analistas-grupo-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .analista-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-actions {
+    align-self: flex-end;
+  }
+
+  .form-card {
+    max-width: 100%;
+  }
+}
+
+/* Iconos profesionales - react-icons */
+
+.estado-sistema {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.estado-sistema-icono {
+  width: 12px;
+  height: 12px;
+  color: #4ade80;
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.8));
+}
+
+.avatar svg {
+  width: 34px;
+  height: 34px;
+}
+
+.analistas-lista-icono svg {
+  width: 42px;
+  height: 42px;
+}
+
+.analistas-tipo-icono svg {
+  width: 22px;
+  height: 22px;
+}
+
+.analistas-tipo-icono.icono-activo svg {
+  color: #4ade80;
+}
+
+.analistas-tipo-icono.icono-inactivo svg {
+  color: #f87171;
+}
+
+.analista-card-avatar svg {
+  width: 26px;
+  height: 26px;
+}
+
+.estado-analista-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.estado-analista-card svg {
+  width: 9px;
+  height: 9px;
+}
+
+.estado-analista-card.activo {
+  color: #4ade80;
+}
+
+.estado-analista-card.inactivo {
+  color: #ef4444;
+}
+
+.btn-editar,
+.btn-desactivar,
+.btn-reactivar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-editar svg,
+.btn-desactivar svg,
+.btn-reactivar svg {
+  width: 17px;
+  height: 17px;
+}

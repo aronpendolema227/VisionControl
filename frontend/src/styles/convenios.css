@@ -1,0 +1,1246 @@
+
+
+/* =========================================================
+   CONTENEDOR GENERAL
+========================================================= */
+
+.convenios-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.convenios-page .camaras-main {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 52px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top right, rgba(0, 120, 190, 0.12), transparent 34%),
+    linear-gradient(180deg, #061121 0%, #07101f 100%);
+}
+
+/* =========================================================
+   SIDEBAR / LOGO
+========================================================= */
+
+.convenios-page .logo-box {
+  height: 120px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 18px;
+  overflow: visible;
+}
+
+.convenios-page .logo-box-img {
+  width: 239px;
+  height: auto;
+  display: block;
+  transform: translateY(-45px);
+}
+
+.convenios-page .camaras-sidebar nav {
+  margin-top: 0;
+}
+
+/* =========================================================
+   ENCABEZADO SUPERIOR
+========================================================= */
+
+.convenios-page .header-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 26px;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.convenios-page .page-header h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.convenios-page .page-header p {
+  margin: 0;
+  color: #d6e2f0;
+  font-size: 17px;
+}
+
+/* =========================================================
+   USUARIO HEADER - MISMO ESTILO DASHBOARD
+========================================================= */
+
+.convenios-page .dashboard-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(15, 23, 42, 0.65);
+  padding: 12px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.convenios-page .user-avatar {
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.convenios-page .user-avatar svg{
+  width: 26px;
+  height: 26px;
+}
+
+.convenios-page .dashboard-user strong {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.convenios-page .dashboard-user p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.convenios-page .btn-salir {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.convenios-page .btn-salir:hover {
+  background: #b91c1c;
+}
+
+/* =========================================================
+  RESUMEN SUPERIOR
+  Tarjetas: total convenios, cámaras asociadas, provincias
+========================================================= */
+
+.convenios-page .dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0 28px;
+  width: 100%;
+}
+
+.convenios-page .dashboard-card {
+  min-height: 150px;
+  width: 100%;
+  border-radius: 18px;
+  padding: 20px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.convenios-page .dashboard-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+}
+
+.convenios-page .dashboard-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #93c5fd;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.convenios-page .dashboard-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.convenios-page .dashboard-card small {
+  display: block;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Colores individuales de tarjetas */
+
+.convenios-page .dashboard-card:nth-child(1) {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 64, 175, 0.35),
+    rgba(15, 23, 42, 0.96)
+  );
+  border-color: rgba(56, 189, 248, 0.42);
+  box-shadow: 0 16px 38px rgba(14, 165, 233, 0.14);
+}
+
+.convenios-page .dashboard-card:nth-child(1) span {
+  color: #7dd3fc;
+}
+
+.convenios-page .dashboard-card:nth-child(1) strong {
+  color: #e0f2fe;
+}
+
+.convenios-page .dashboard-card:nth-child(2) {
+  background: linear-gradient(
+    135deg,
+    rgba(22, 101, 52, 0.36),
+    rgba(15, 23, 42, 0.96)
+  );
+  border-color: rgba(34, 197, 94, 0.42);
+  box-shadow: 0 16px 38px rgba(34, 197, 94, 0.13);
+}
+
+.convenios-page .dashboard-card:nth-child(2) span {
+  color: #86efac;
+}
+
+.convenios-page .dashboard-card:nth-child(2) strong {
+  color: #dcfce7;
+}
+
+.convenios-page .dashboard-card:nth-child(3) {
+  background: linear-gradient(
+    135deg,
+    rgba(180, 83, 9, 0.34),
+    rgba(15, 23, 42, 0.96)
+  );
+  border-color: rgba(251, 191, 36, 0.42);
+  box-shadow: 0 16px 38px rgba(245, 158, 11, 0.13);
+}
+
+.convenios-page .dashboard-card:nth-child(3) span {
+  color: #fcd34d;
+}
+
+.convenios-page .dashboard-card:nth-child(3) strong {
+  color: #fef3c7;
+}
+
+/* =========================================================
+   PANEL PRINCIPAL DE TABLA
+========================================================= */
+
+.convenios-page .tabla-panel {
+  background: rgba(8, 20, 42, 0.92);
+  border: 1px solid rgba(0, 195, 255, 0.32);
+  border-radius: 22px;
+  padding: 24px 26px 20px;
+  box-shadow: 0 0 30px rgba(0, 195, 255, 0.07);
+}
+
+.convenios-page .tabla-header h3 {
+  color: #00d9ff;
+  font-size: 23px;
+  margin: 0 0 4px;
+}
+
+.convenios-page .tabla-header .total-camaras {
+  color: #a9bdd7;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* =========================================================
+   FILTROS DE CONVENIOS
+========================================================= */
+
+.convenios-page .filtros-convenios {
+  margin: 22px 0 20px;
+  padding: 16px;
+  background: rgba(9, 23, 49, 0.78);
+  border: 1px solid rgba(83, 122, 180, 0.32);
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto auto;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.convenios-page .filtros-convenios select,
+.convenios-page .filtros-convenios input {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  background: rgba(13, 24, 48, 0.95);
+  color: #ffffff;
+  border: 1px solid rgba(130, 156, 195, 0.35);
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 15px;
+  outline: none;
+}
+
+.convenios-page .filtros-convenios select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.convenios-page .filtros-convenios select:focus,
+.convenios-page .filtros-convenios input:focus {
+  border-color: rgba(0, 195, 255, 0.75);
+  box-shadow: 0 0 0 3px rgba(0, 195, 255, 0.12);
+}
+
+.convenios-page .filtros-convenios button {
+  height: 48px;
+  min-width: 110px;
+  border: 1px solid rgba(0, 195, 255, 0.55);
+  background: rgba(16, 75, 135, 0.8);
+  color: #ffffff;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.convenios-page .filtros-convenios button:hover {
+  background: rgba(28, 130, 230, 0.95);
+  transform: translateY(-1px);
+}
+
+.convenios-page .filtros-convenios .btn-limpiar {
+  background: rgba(148, 163, 184, 0.14);
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+.convenios-page .filtros-convenios .btn-limpiar:hover {
+  background: rgba(148, 163, 184, 0.24);
+}
+
+/* =========================================================
+   TABLA DE CÁMARAS POR CONVENIO
+========================================================= */
+
+.convenios-page .tabla-contenedor {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.convenios-page .tabla-camaras {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+}
+
+.convenios-page .tabla-camaras thead tr {
+  background: rgba(14, 25, 48, 0.95);
+}
+
+.convenios-page .tabla-camaras th {
+  color: #f2f7ff;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 16px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(130, 156, 195, 0.22);
+}
+
+.convenios-page .tabla-camaras td {
+  color: #e9f4ff;
+  padding: 18px 14px;
+  border-bottom: 1px solid rgba(130, 156, 195, 0.14);
+  font-size: 11px;
+}
+
+.convenios-page .tabla-camaras tr:hover {
+  background: rgba(30, 41, 59, 0.42);
+}
+
+.convenios-page .tabla-camaras td strong {
+  color: #49dcff;
+  font-weight: 800;
+}
+
+/* =========================================================
+   ESTADOS DE CONVENIO
+========================================================= */
+
+.convenios-page .estado-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 90px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.convenios-page .estado-operativa {
+  color: #73ffb4;
+  background: rgba(30, 180, 105, 0.18);
+  border: 1px solid rgba(30, 180, 105, 0.45);
+}
+
+.convenios-page .estado-no-operativa {
+  color: #ff7575;
+  background: rgba(210, 55, 70, 0.18);
+  border: 1px solid rgba(210, 55, 70, 0.45);
+}
+
+.convenios-page .estado-mantenimiento {
+  color: #ffe079;
+  background: rgba(230, 170, 40, 0.17);
+  border: 1px solid rgba(230, 170, 40, 0.45);
+}
+
+.convenios-page .estado-conectividad {
+  color: #5ee8ff;
+  background: rgba(0, 195, 255, 0.16);
+  border: 1px solid rgba(0, 195, 255, 0.42);
+}
+
+.convenios-page .estado-neutral {
+  color: #e2ecfa;
+  background: rgba(130, 150, 180, 0.16);
+  border: 1px solid rgba(170, 190, 220, 0.32);
+}
+
+/* =========================================================
+   BOTONES DE ACCIÓN EN TABLA
+   Ver para todos / Editar para EDITOR y SUPER_ADMIN
+========================================================= */
+
+.convenios-page .acciones-tabla {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.convenios-page .acciones-tabla-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.convenios-page .acciones-tabla button {
+  min-width: 86px;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.convenios-page .btn-ver-convenio {
+  background: rgba(21, 91, 170, 0.9);
+  color: #ffffff;
+  border: 1px solid rgba(0, 195, 255, 0.35);
+}
+
+.convenios-page .btn-ver-convenio:hover {
+  background: rgba(30, 135, 240, 1);
+  transform: translateY(-1px);
+}
+
+.convenios-page .btn-editar-convenio {
+  background: rgba(245, 158, 11, 0.22);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.convenios-page .btn-editar-convenio:hover {
+  background: rgba(245, 158, 11, 0.36);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   PAGINACIÓN
+========================================================= */
+
+.convenios-page .paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0 6px;
+}
+
+.convenios-page .paginacion button {
+  min-width: 112px;
+  height: 42px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.convenios-page .paginacion button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+.convenios-page .paginacion button:disabled {
+  background: rgba(37, 99, 235, 0.35);
+  color: rgba(255, 255, 255, 0.45);
+  cursor: not-allowed;
+}
+
+.convenios-page .paginacion span {
+  min-width: 42px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+/* =========================================================
+   MENSAJES SIN DATOS / CARGANDO / ERROR
+========================================================= */
+
+.convenios-page .sin-datos {
+  padding: 22px;
+  color: #a9bdd7;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* =========================================================
+   MODAL DETALLE DE CONVENIO
+========================================================= */
+
+.convenios-page .modal-detalle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 24px;
+  background: rgba(2, 6, 23, 0.76);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.convenios-page .modal-detalle-camara {
+  width: min(980px, calc(100vw - 48px));
+  max-width: 100%;
+  max-height: 88vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(0, 195, 255, 0.28);
+  border-radius: 22px;
+  padding: 26px 30px 30px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+}
+
+.convenios-page .modal-detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.convenios-page .modal-detalle-header h3 {
+  margin: 0 0 6px;
+  color: #22d3ee;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.convenios-page .modal-detalle-header p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.convenios-page .modal-detalle-header button {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(239, 68, 68, 0.22);
+  color: #fca5a5;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.convenios-page .modal-detalle-header button:hover {
+  background: rgba(239, 68, 68, 0.34);
+  color: #ffffff;
+}
+
+.convenios-page .detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.convenios-page .detalle-grid div {
+  min-width: 0;
+  box-sizing: border-box;
+  background: rgba(9, 23, 49, 0.86);
+  border: 1px solid rgba(0, 195, 255, 0.2);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.convenios-page .detalle-grid span {
+  display: block;
+  color: #8fa5c1;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.convenios-page .detalle-grid strong {
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .convenios-page .dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .convenios-page .filtros-convenios {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .convenios-page .detalle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .convenios-page .camaras-main {
+    padding: 28px 18px;
+  }
+
+  .convenios-page .header-superior {
+    flex-direction: column;
+  }
+
+  .convenios-page .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .convenios-page .dashboard-cards,
+  .convenios-page .filtros-convenios,
+  .convenios-page .detalle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .convenios-page .page-header h2 {
+    font-size: 34px;
+  }
+
+  .convenios-page .modal-detalle-overlay {
+    padding: 14px;
+    align-items: flex-start;
+  }
+
+  .convenios-page .modal-detalle-camara {
+    width: 100%;
+    max-height: none;
+    padding: 22px;
+  }
+}
+
+/* =========================================================
+   PÁGINA EDITAR CONVENIO
+========================================================= */
+
+.convenios-page .editar-convenio-card {
+  padding: 26px;
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 28px rgba(14, 165, 233, 0.14);
+}
+
+.convenios-page .editar-convenio-card h2 {
+  margin: 0 0 8px;
+  color: #22d3ee;
+}
+
+.convenios-page .editar-convenio-card p {
+  color: #94a3b8;
+}
+
+.convenios-page .editar-convenio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.convenios-page .editar-convenio-header h3 {
+  margin: 0;
+  color: #22d3ee;
+  font-size: 24px;
+}
+
+.convenios-page .editar-convenio-header p {
+  margin: 6px 0 0;
+}
+
+.convenios-page .editar-convenio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.convenios-page .campo-edicion-convenio {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.convenios-page .campo-edicion-convenio label {
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.convenios-page .campo-edicion-convenio input,
+.convenios-page .campo-edicion-convenio select,
+.convenios-page .campo-edicion-convenio textarea {
+  width: 100%;
+  border-radius: 13px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.9);
+  color: #ffffff;
+  padding: 12px 14px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.convenios-page .campo-edicion-convenio textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+.convenios-page .campo-edicion-convenio input:focus,
+.convenios-page .campo-edicion-convenio select:focus,
+.convenios-page .campo-edicion-convenio textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+}
+
+.convenios-page .campo-edicion-convenio-full {
+  grid-column: 1 / -1;
+}
+
+.convenios-page .editar-convenio-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.convenios-page .btn-volver-convenio,
+.convenios-page .btn-guardar-convenio {
+  border: none;
+  border-radius: 13px;
+  padding: 11px 16px;
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.convenios-page .btn-volver-convenio {
+  background: rgba(51, 65, 85, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.convenios-page .btn-guardar-convenio {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.convenios-page .btn-volver-convenio:hover,
+.convenios-page .btn-guardar-convenio:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1000px) {
+  .convenios-page .editar-convenio-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .convenios-page .editar-convenio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .convenios-page .editar-convenio-header {
+    flex-direction: column;
+  }
+}
+
+.btn-nuevo-convenio {
+  margin-left: 24px;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  width: calc(100% - 24px);
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 191, 255, 0.35);
+  border-radius: 14px;
+  background: rgba(0, 191, 255, 0.08);
+  color: #dff7ff;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-nuevo-convenio:hover {
+  background: rgba(0, 191, 255, 0.18);
+  box-shadow: 0 0 16px rgba(0, 191, 255, 0.25);
+}
+
+.btn-nuevo-convenio.activo {
+  background: linear-gradient(135deg, #123b7a, #174ea6);
+  box-shadow: 0 0 18px rgba(0, 119, 255, 0.35);
+  color: #ffffff;
+}
+
+/* ===============================
+   NUEVO CONVENIO
+   Usa layout de Nueva Cámara
+================================ */
+
+.convenio-nuevo-panel {
+  margin-top: 24px;
+}
+
+
+
+
+
+
+
+.convenio-seleccion-card {
+  margin-top: 28px;
+  padding: 26px;
+  border-radius: 20px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(6, 78, 59, 0.14);
+}
+
+.convenio-seleccion-card h3 {
+  margin: 0 0 18px;
+  color: #86efac;
+  font-size: 24px;
+}
+
+.detalle-convenio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.detalle-convenio-grid p {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.detalle-convenio-grid strong {
+  display: block;
+  color: #93c5fd;
+  margin-bottom: 6px;
+}
+
+.detalle-convenio-grid span {
+  color: #ffffff;
+}
+
+.convenio-seleccion-card label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #93c5fd;
+  font-weight: 800;
+}
+
+.convenio-seleccion-card select {
+  width: 360px;
+  max-width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #071326;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
+
+.acciones-nuevo-convenio {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+}
+
+
+.selector-camaras-sin-convenio {
+  display: flex;
+  align-items: end;
+  gap: 14px;
+  margin: 24px 0 18px;
+  flex-wrap: wrap;
+}
+
+.selector-camaras-sin-convenio label {
+  width: 100%;
+  color: #93c5fd;
+  font-weight: 800;
+  margin-bottom: -6px;
+}
+
+.selector-camaras-sin-convenio select {
+  min-width: 420px;
+  max-width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #071326;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
+
+.selector-camaras-sin-convenio button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  background: #334155;
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-volver-convenio {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 14px;
+  padding: 12px 22px;
+  background: rgba(51, 65, 85, 0.75);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-volver-convenio:hover {
+  background: rgba(71, 85, 105, 0.95);
+  border-color: rgba(0, 191, 255, 0.45);
+  box-shadow: 0 0 14px rgba(0, 191, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.btn-volver-convenio:active {
+  transform: translateY(0);
+}
+
+/* ===============================
+   FORMULARIO DATOS DEL CONVENIO
+   Nuevo convenio
+================================ */
+
+.campos-datos-convenio {
+  margin-top: 28px;
+  padding: 26px;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 191, 255, 0.25);
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.campos-datos-convenio h4 {
+  margin: 0 0 24px;
+  color: #22d3ee;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+/* Grid de campos */
+.form-convenio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+/* Cada campo */
+.campo-convenio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo-convenio label {
+  color: #93c5fd;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* Inputs y selects */
+.campo-convenio input,
+.campo-convenio select {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #071326 !important;
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 600;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.campo-convenio input::placeholder {
+  color: #64748b;
+}
+
+.campo-convenio input:focus,
+.campo-convenio select:focus {
+  border-color: rgba(0, 191, 255, 0.65);
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.12);
+}
+
+/* Calendario date */
+.campo-convenio input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Tarjeta cámara seleccionada */
+.convenio-seleccion-card {
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(6, 78, 59, 0.16);
+}
+
+.convenio-seleccion-card h3 {
+  margin: 0 0 24px;
+  color: #86efac;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+/* Select de Nuevo convenio */
+.convenio-seleccion-card > label {
+  display: block;
+  margin: 24px 0 10px;
+  color: #93c5fd;
+  font-weight: 900;
+}
+
+.convenio-seleccion-card > select {
+  width: 420px;
+  max-width: 100%;
+  min-height: 54px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #071326;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+}
+
+/* Botones inferiores */
+.acciones-nuevo-convenio {
+  margin-top: 28px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.acciones-nuevo-convenio button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.acciones-nuevo-convenio .btn-limpiar {
+  background: rgba(71, 85, 105, 0.85);
+  color: #ffffff;
+}
+
+.acciones-nuevo-convenio .btn-limpiar:hover {
+  background: rgba(100, 116, 139, 0.95);
+}
+
+.acciones-nuevo-convenio .btn-editar {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.22);
+}
+
+.acciones-nuevo-convenio .btn-editar:hover {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  transform: translateY(-1px);
+}
+
+.acciones-nuevo-convenio .btn-editar:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .form-convenio-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .form-convenio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones-nuevo-convenio {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acciones-nuevo-convenio button {
+    width: 100%;
+  }
+}
+
+
+.btn-guardar-nuevo-convenio {
+  min-width: 190px;
+  height: 58px;
+  border: none;
+  border-radius: 16px;
+  padding: 0 28px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.28);
+  transition: all 0.2s ease;
+}
+
+.btn-guardar-nuevo-convenio:hover {
+  background: linear-gradient(135deg, #15803d, #16a34a);
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.38);
+}
+
+.btn-guardar-nuevo-convenio:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.acciones-nuevo-convenio {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.acciones-nuevo-convenio .btn-limpiar {
+  min-width: 140px;
+  height: 58px;
+  border-radius: 16px;
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================
+   ICONOS PROFESIONALES - CONVENIOS
+================================ */
+
+.convenios-page .btn-ver-convenio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.convenios-page .btn-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.convenios-page .modal-detalle-header button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
