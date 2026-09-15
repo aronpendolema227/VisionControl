@@ -15,7 +15,7 @@ function ReporteEditarPage() {
   const { idCamara } = useParams();
 
   const rol = localStorage.getItem("rol") || "LECTOR";
-  const esSuperAdmin = rol === "SUPER_ADMIN";
+
   const puedeEditar = rol === "ANALISTA_TECNOLOGIA" || rol === "SUPER_ADMIN";
 
    const nombreUsuarioSesion =
@@ -276,28 +276,6 @@ function ReporteEditarPage() {
 
   return (
     <div className="camaras-page">
-      <aside className="camaras-sidebar">
-        <div className="logo-box">
-          <h1>ECU 911</h1>
-          <span>Servicio Integrado de Seguridad</span>
-        </div>
-
-        <nav className="sidebar-menu">
-          <button onClick={() => navigate("/dashboard")}>📊 Dashboard</button>
-          <button onClick={() => navigate("/camaras")}>🎥 Cámaras</button>
-          <button onClick={() => navigate("/convenios")}>📄 Convenios</button>
-
-          <button className="activo" onClick={() => navigate("/reportes")}>
-            📑 Reportes
-          </button>
-
-          {esSuperAdmin && (
-            <button onClick={() => navigate("/auditorias")}>
-              📋 Auditorías
-            </button>
-          )}
-        </nav>
-      </aside>
 
       <main className="camaras-main">
         {cargando ? (

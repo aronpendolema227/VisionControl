@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import "../styles/camaras.css";
 import "../styles/reportes.css";
+import{FaEdit}from "react-icons/fa";
 
 function ReporteDetallePage() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ function ReporteDetallePage() {
   const { idCamara } = useParams();
 
   const rol = localStorage.getItem("rol") || "LECTOR";
-  const esSuperAdmin = rol === "SUPER_ADMIN";
+  
   const puedeEditar = rol === "ANALISTA_TECNOLOGIA" || rol === "SUPER_ADMIN";
 
   const camaraGuardada = localStorage.getItem("reporteCamaraSeleccionada");
@@ -64,28 +65,6 @@ function ReporteDetallePage() {
 
   return (
     <div className="camaras-page">
-      <aside className="camaras-sidebar">
-        <div className="logo-box">
-          <h1>ECU 911</h1>
-          <span>Servicio Integrado de Seguridad</span>
-        </div>
-
-        <nav className="sidebar-menu">
-          <button onClick={() => navigate("/dashboard")}>📊 Dashboard</button>
-          <button onClick={() => navigate("/camaras")}>🎥 Cámaras</button>
-          <button onClick={() => navigate("/convenios")}>📄 Convenios</button>
-
-          <button className="activo" onClick={() => navigate("/reportes")}>
-            📑 Reportes
-          </button>
-
-          {esSuperAdmin && (
-            <button onClick={() => navigate("/auditorias")}>
-              📋 Auditorías
-            </button>
-          )}
-        </nav>
-      </aside>
 
       <main className="camaras-main">
         {!camaraValida ? (
@@ -131,7 +110,8 @@ function ReporteDetallePage() {
                     className="btn-reporte-editar"
                     onClick={() => navigate(`/reportes/editar/${idCamara}`)}
                   >
-                    ✏️ Editar reporte
+                    <FaEdit className="btn-icon" />
+                    Editar reporte
                   </button>
                 )}
 
