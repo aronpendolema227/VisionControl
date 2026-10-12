@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { MdDashboard } from "react-icons/md";
+import UserHeaderActions from "../components/common/UserHeaderActions";
 import {
   FaVideo,
   FaFileContract,
   FaClipboardList,
-  FaUserAlt,
   FaPlus,
   FaSearch,
   FaEraser,
@@ -509,24 +509,11 @@ const manejarDescargarExcel = async () => {
             <p>Consulta, filtra y revisa información operativa de cámaras ECU 911.</p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              <FaUserAlt />
-            </div>
-
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-
-            <button
-              type="button"
-              className="btn-salir"
-              onClick={cerrarSesion}
-            >
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </header>
 
         <section className="reportes-resumen">

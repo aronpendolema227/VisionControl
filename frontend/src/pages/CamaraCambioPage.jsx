@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaUserAlt } from "react-icons/fa";
+import UserHeaderActions from "../components/common/UserHeaderActions";
 import {
   buscarCamarasParaCambio,
   obtenerCamaraPorId,
@@ -1027,20 +1027,11 @@ function CamaraCambioPage() {
             </p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              <FaUserAlt />
-            </div>
-
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-
-            <button type="button" className="btn-salir" onClick={cerrarSesion}>
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </header>
 
         <section className="editar-camara-card">

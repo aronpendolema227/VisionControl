@@ -1,4 +1,5 @@
-import { FaUserAlt } from "react-icons/fa";
+import UserHeaderActions from "../common/UserHeaderActions";
+
 function AuditoriasHeader({ username, rol, onCerrarSesion }) {
   return (
     <section className="auditorias-header">
@@ -7,18 +8,11 @@ function AuditoriasHeader({ username, rol, onCerrarSesion }) {
         <p>Consulta, control e históricos del sistema.</p>
       </div>
 
-      <div className="auditorias-user">
-        <div className="auditorias-avatar">
-          <FaUserAlt />
-        </div>
-
-        <div>
-          <strong>{username}</strong>
-          <p>{rol}</p>
-        </div>
-
-        <button onClick={onCerrarSesion}>Salir</button>
-      </div>
+      <UserHeaderActions
+        username={username}
+        rol={rol}
+        onCerrarSesion={onCerrarSesion}
+      />
     </section>
   );
 }

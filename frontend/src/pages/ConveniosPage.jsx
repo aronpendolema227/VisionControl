@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { MdDashboard } from "react-icons/md";
+import UserHeaderActions from "../components/common/UserHeaderActions";
 import {
   FaVideo,
   FaFileContract,
   FaClipboardList,
-  FaUserAlt,
   FaEye,
 } from "react-icons/fa";
 import { obtenerResumenConvenios } from "../services/convenioService";
@@ -338,24 +338,11 @@ function ConveniosPage() {
             <p>Consulta de cámaras por información de convenio.</p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              < FaUserAlt/>
-            </div>
-
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-
-            <button
-              type="button"
-              className="btn-salir"
-              onClick={cerrarSesion}
-            >
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </section>
 
         <section className="dashboard-cards">

@@ -1,9 +1,8 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FaUserAlt } from "react-icons/fa";
 import { actualizarCamara } from "../services/camaraService";
 import { obtenerConvenios } from "../services/convenioService";
-
+import UserHeaderActions from "../components/common/UserHeaderActions";
 import "../styles/camaras.css";
 
 
@@ -513,24 +512,11 @@ function CamaraEditarPage() {
             <p>Actualiza la información operativa de la cámara seleccionada.</p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              <FaUserAlt />
-            </div>
-
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-
-            <button
-              type="button"
-              className="btn-salir"
-              onClick={cerrarSesion}
-            >
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </header>
 
         {!camaraValida ? (

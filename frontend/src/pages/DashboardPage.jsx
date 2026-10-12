@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {MdDashboard} from "react-icons/md";
 import logo from "../assets/logo.png";
+import UserHeaderActions from "../components/common/UserHeaderActions";
 import{
   FaVideo,
   FaFileContract,
   FaClipboardList,
-  FaUserAlt,
+
 } from "react-icons/fa"
 
 import "../styles/dashboard.css";
@@ -238,18 +239,11 @@ function DashboardPage() {
             <p>Panel general del sistema de inventario de cámaras</p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              <FaUserAlt />
-            </div>
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-            <button className="btn-salir" onClick={cerrarSesion}>
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </header>
 
         <section className="dashboard-cards">

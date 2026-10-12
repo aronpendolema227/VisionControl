@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UserHeaderActions from "../components/common/UserHeaderActions";
 
-import {
-  FaUserAlt,
-} from "react-icons/fa";
+
 
 import { obtenerProvincias } from "../services/provinciaService";
 import { obtenerCantonesPorProvincia } from "../services/cantonService";
@@ -505,20 +504,11 @@ const puedeEditar = rol === "ANALISTA_TECNOLOGIA" || rol === "SUPER_ADMIN";
             <p>Registra una nueva cámara en el inventario ECU 911.</p>
           </div>
 
-          <div className="dashboard-user">
-            <div className="user-avatar">
-              <FaUserAlt />
-            </div>
-
-            <div>
-              <strong>{username}</strong>
-              <p>{rol}</p>
-            </div>
-
-            <button type="button" className="btn-salir" onClick={cerrarSesion}>
-              Salir
-            </button>
-          </div>
+          <UserHeaderActions
+            username={username}
+            rol={rol}
+            onCerrarSesion={cerrarSesion}
+          />
         </header>
 
         <section className="editar-camara-card">
