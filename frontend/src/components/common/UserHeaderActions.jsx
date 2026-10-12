@@ -1,15 +1,149 @@
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaUserAlt, FaBell } from "react-icons/fa";
+import { obtenerResumenOperativo } from "../../services/reporteService";
+import "../../styles/notificaciones.css";
 
 function UserHeaderActions({ username, rol, onCerrarSesion }) {
+  const navigate = useNavigate();
+
+  const [panelAbierto, setPanelAbierto] = useState(false);
+  const [resumen, setResumen] = useState(null);
+  const [cargandoNotificaciones, setCargandoNotificaciones] = useState(false);
+
+  const rolNormalizado = String(rol || "").toUpperCase();
+
+  useEffect(() => {
+    let activo = true;
+
+    const cargarResumen = async () => {
+      try {
+        setCargandoNotificaciones(true);
+
+        const data = await obtenerResumenOperativo();
+
+        if (activo) {
+          setResumen(data);
+        }
+      } catch (error) {
+        console.error("Error al cargar notificaciones:", error);
+      } finally {
+        if (activo) {
+          setCargandoNotificaciones(false);
+        }
+      }
+    };
+
+    cargarResumen();
+
+    return () => {
+      activo = false;
+    };
+  }, []);
+
+  const notificaciones = useMemo(() => {
+    const lista = [];
+
+    const glpiActivos = Number(resumen?.glpiActivos || 0);
+    const noOperativas = Number(resumen?.noOperativas || 0);
+
+    const puedeVerGlpi =
+      rolNormalizado === "SUPER_ADMIN" ||
+      rolNormalizado === "ANALISTA_TECNOLOGIA" ||
+      rolNormalizado === "ANALISTA_OPERACIONES";
+
+    const puedeVerCamarasConNovedad =
+      rolNormalizado === "SUPER_ADMIN" ||
+      rolNormalizado === "ANALISTA_TECNOLOGIA" ||
+      rolNormalizado === "ANALISTA_OPERACIONES";
+
+    if (puedeVerGlpi && glpiActivos > 0) {
+      lista.push({
+        id: "glpi-activos",
+        titulo: "Tickets GLPI activos",
+        mensaje: `Existen ${glpiActivos} tickets GLPI pendientes de seguimiento.`,
+        etiqueta: "GLPI",
+        tipo: "glpi",
+        ruta: "/reportes",
+      });
+    }
+
+    if (puedeVerCamarasConNovedad && noOperativas > 0) {
+      lista.push({
+        id: "camaras-no-operativas",
+        titulo: "Cámaras con novedades",
+        mensaje: `Hay ${noOperativas} cámaras no operativas o con novedades registradas.`,
+        etiqueta: "CÁMARAS",
+        tipo: "camaras",
+        ruta: "/camaras",
+      });
+    }
+
+    return lista;
+  }, [resumen, rolNormalizado]);
+
+  const abrirNotificacion = (ruta) => {
+    setPanelAbierto(false);
+    navigate(ruta);
+  };
+
   return (
     <div className="user-header-actions">
-      <button
-        type="button"
-        className="btn-notificaciones"
-        title="Notificaciones"
-      >
-        <FaBell />
-      </button>
+      <div className="notificaciones-wrapper">
+        <button
+          type="button"
+          className="btn-notificaciones"
+          title="Notificaciones"
+          onClick={() => setPanelAbierto((valorActual) => !valorActual)}
+        >
+          <FaBell />
+
+          {notificaciones.length > 0 && (
+            <span className="notificaciones-badge">
+              {notificaciones.length}
+            </span>
+          )}
+        </button>
+
+        {panelAbierto && (
+          <div className="notificaciones-panel">
+            <div className="notificaciones-header">
+              <div>
+                <h3>Notificaciones</h3>
+                <p>
+                  {cargandoNotificaciones
+                    ? "Cargando información..."
+                    : `${notificaciones.length} notificaciones disponibles`}
+                </p>
+              </div>
+            </div>
+
+            <div className="notificaciones-lista">
+              {notificaciones.length === 0 ? (
+                <div className="notificacion-vacia">
+                  No hay notificaciones pendientes.
+                </div>
+              ) : (
+                notificaciones.map((notificacion) => (
+                  <button
+                    key={notificacion.id}
+                    type="button"
+                    className="notificacion-item"
+                    onClick={() => abrirNotificacion(notificacion.ruta)}
+                  >
+                    <strong>{notificacion.titulo}</strong>
+                    <span>{notificacion.mensaje}</span>
+
+                    <small className={`notificacion-etiqueta ${notificacion.tipo}`}>
+                      {notificacion.etiqueta}
+                    </small>
+                  </button>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="dashboard-user">
         <div className="user-avatar">
