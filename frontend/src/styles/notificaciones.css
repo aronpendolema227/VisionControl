@@ -128,7 +128,7 @@
   font-size: 13px;
 }
 
-.btn-marcar-leidas {
+.btn-limpiar-notificaciones {
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 999px;
   padding: 7px 10px;
@@ -141,7 +141,7 @@
   white-space: nowrap;
 }
 
-.btn-marcar-leidas:hover {
+.btn-limpiar-notificaciones:hover {
   background: rgba(37, 99, 235, 0.32);
   border-color: rgba(34, 211, 238, 0.35);
   color: #ffffff;

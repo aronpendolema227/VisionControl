@@ -10,56 +10,50 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
 
   const rolNormalizado = String(rol || "").toUpperCase();
 
-  const storageKeyNotificaciones = useMemo(() => {
-    const usuarioSeguro = String(username || "usuario")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "_");
-
-    return `visioncontrol_notificaciones_leidas_${usuarioSeguro}_${rolNormalizado}`;
-  }, [username, rolNormalizado]);
+  
 
   const [panelAbierto, setPanelAbierto] = useState(false);
   const [resumen, setResumen] = useState(null);
   const [cargandoNotificaciones, setCargandoNotificaciones] = useState(false);
 
-  const [notificacionesLeidas, setNotificacionesLeidas] = useState(() => {
-    try {
-      const datosGuardados = localStorage.getItem(storageKeyNotificaciones);
-      const leidas = datosGuardados ? JSON.parse(datosGuardados) : [];
-
-      return Array.isArray(leidas) ? leidas : [];
-    } catch (error) {
-      console.error("Error al cargar notificaciones leídas:", error);
-      return [];
-    }
-  });
+  const [notificacionesLeidas, setNotificacionesLeidas] = useState([]);
 
   useEffect(() => {
     let activo = true;
 
-    const cargarResumen = async () => {
+    const cargarResumen = async (esActualizacionAutomatica = false) => {
       try {
-        setCargandoNotificaciones(true);
+        if (!esActualizacionAutomatica) {
+          setCargandoNotificaciones(true);
+        }
 
         const data = await obtenerResumenOperativo();
 
         if (activo) {
           setResumen(data);
+
+          if (esActualizacionAutomatica) {
+            setNotificacionesLeidas([]);
+          }
         }
       } catch (error) {
         console.error("Error al cargar notificaciones:", error);
       } finally {
-        if (activo) {
+        if (activo && !esActualizacionAutomatica) {
           setCargandoNotificaciones(false);
         }
       }
     };
 
-    cargarResumen();
+    cargarResumen(false);
+
+    const intervaloNotificaciones = setInterval(() => {
+      cargarResumen(true);
+    }, 60000);
 
     return () => {
       activo = false;
+      clearInterval(intervaloNotificaciones);
     };
   }, []);
 
@@ -163,36 +157,20 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         return leidasActuales;
       }
 
-      const nuevasLeidas = [...leidasActuales, notificacion.lecturaId];
-
-      localStorage.setItem(
-        storageKeyNotificaciones,
-        JSON.stringify(nuevasLeidas)
-      );
-
-      return nuevasLeidas;
+      return [...leidasActuales, notificacion.lecturaId];
     });
   };
 
-  const marcarTodasComoLeidas = () => {
+  const limpiarNotificaciones = () => {
     const idsNotificacionesActuales = notificaciones
       .map((notificacion) => notificacion.lecturaId)
       .filter(Boolean);
 
     if (idsNotificacionesActuales.length === 0) return;
 
-    setNotificacionesLeidas((leidasActuales) => {
-      const nuevasLeidas = Array.from(
-        new Set([...leidasActuales, ...idsNotificacionesActuales])
-      );
-
-      localStorage.setItem(
-        storageKeyNotificaciones,
-        JSON.stringify(nuevasLeidas)
-      );
-
-      return nuevasLeidas;
-    });
+    setNotificacionesLeidas((leidasActuales) =>
+      Array.from(new Set([...leidasActuales, ...idsNotificacionesActuales]))
+    );
   };
 
   const abrirNotificacion = (notificacion) => {
@@ -238,42 +216,32 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
               {notificacionesNoLeidas.length > 0 && (
                 <button
                   type="button"
-                  className="btn-marcar-leidas"
-                  onClick={marcarTodasComoLeidas}
+                  className="btn-limpiar-notificaciones"
+                  onClick={limpiarNotificaciones}
                 >
-                  Marcar todas
+                  Limpiar
                 </button>
               )}
             </div>
 
             <div className="notificaciones-lista">
-              {notificaciones.length === 0 ? (
+              {notificacionesNoLeidas.length === 0 ? (
                 <div className="notificacion-vacia">
-                  No hay notificaciones pendientes.
+                  No hay notificaciones nuevas.
                 </div>
               ) : (
-                notificaciones.map((notificacion) => (
+                notificacionesNoLeidas.map((notificacion) => (
                   <button
                     key={notificacion.id}
                     type="button"
-                    className={`notificacion-item ${
-                      notificacionesLeidas.includes(notificacion.lecturaId) ? "leida" : "nueva"
-                    }`}
+                    className="notificacion-item nueva"
                     onClick={() => abrirNotificacion(notificacion)}
                   >
                     <div className="notificacion-top">
                       <strong>{notificacion.titulo}</strong>
 
-                      <small
-                        className={`notificacion-estado ${
-                          notificacionesLeidas.includes(notificacion.lecturaId)
-                            ? "leida"
-                            : "nueva"
-                        }`}
-                      >
-                        {notificacionesLeidas.includes(notificacion.lecturaId)
-                          ? "Leída"
-                          : "Nueva"}
+                      <small className="notificacion-estado nueva">
+                        Nueva
                       </small>
                     </div>
 
