@@ -7,6 +7,8 @@ import com.visioncontrol.inventario.repositories.HistorialNovedadRepository;
 import com.visioncontrol.inventario.repositories.NotificacionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.visioncontrol.inventario.entities.HistorialNotificacion;
+import com.visioncontrol.inventario.repositories.HistorialNotificacionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,15 +22,18 @@ public class NotificacionService {
     private final NotificacionRepository notificacionRepository;
     private final CamaraRepository camaraRepository;
     private final HistorialNovedadRepository historialNovedadRepository;
+    private final HistorialNotificacionRepository historialNotificacionRepository;
 
     public NotificacionService(
-            NotificacionRepository notificacionRepository,
-            CamaraRepository camaraRepository,
-            HistorialNovedadRepository historialNovedadRepository
+        NotificacionRepository notificacionRepository,
+        CamaraRepository camaraRepository,
+        HistorialNovedadRepository historialNovedadRepository,
+        HistorialNotificacionRepository historialNotificacionRepository
     ) {
         this.notificacionRepository = notificacionRepository;
         this.camaraRepository = camaraRepository;
         this.historialNovedadRepository = historialNovedadRepository;
+        this.historialNotificacionRepository = historialNotificacionRepository;
     }
 
     @Transactional
@@ -61,6 +66,21 @@ public class NotificacionService {
 
         Notificacion notificacion = obtenerOCrear("GLPI_ACTIVOS");
 
+        boolean esNueva = notificacion.getIdNotificacion() == null;
+        Integer conteoAnterior = esNueva ? null : notificacion.getConteoActual();
+        Boolean activaAnterior = esNueva ? null : notificacion.getActiva();
+
+        String evento = determinarEventoSincronizacion(
+                esNueva,
+                activaAnterior,
+                conteoAnterior,
+                total
+        );
+
+        if (evento == null) {
+            return;
+        }
+
         notificacion.setTitulo("Tickets GLPI activos");
         notificacion.setMensaje("Existen " + total + " tickets GLPI pendientes de seguimiento.");
         notificacion.setDetalle("Requiere revisión técnica o actualización del seguimiento.");
@@ -75,7 +95,17 @@ public class NotificacionService {
         notificacion.setActiva(true);
         notificacion.setFechaResolucion(null);
 
-        notificacionRepository.save(notificacion);
+        Notificacion notificacionGuardada = notificacionRepository.save(notificacion);
+
+        registrarHistorial(
+                notificacionGuardada,
+                evento,
+                conteoAnterior,
+                total,
+                activaAnterior,
+                true,
+                "Sincronización automática de tickets GLPI activos."
+        );
     }
 
     private void sincronizarCamarasConNovedad(Long totalCamarasConNovedad) {
@@ -87,6 +117,21 @@ public class NotificacionService {
         }
 
         Notificacion notificacion = obtenerOCrear("CAMARAS_CON_NOVEDAD");
+
+        boolean esNueva = notificacion.getIdNotificacion() == null;
+        Integer conteoAnterior = esNueva ? null : notificacion.getConteoActual();
+        Boolean activaAnterior = esNueva ? null : notificacion.getActiva();
+
+        String evento = determinarEventoSincronizacion(
+                esNueva,
+                activaAnterior,
+                conteoAnterior,
+                total
+        );
+
+        if (evento == null) {
+            return;
+        }
 
         notificacion.setTitulo("Cámaras con novedades");
         notificacion.setMensaje("Hay " + total + " cámaras no operativas o con novedades registradas.");
@@ -102,7 +147,17 @@ public class NotificacionService {
         notificacion.setActiva(true);
         notificacion.setFechaResolucion(null);
 
-        notificacionRepository.save(notificacion);
+        Notificacion notificacionGuardada = notificacionRepository.save(notificacion);
+
+        registrarHistorial(
+                notificacionGuardada,
+                evento,
+                conteoAnterior,
+                total,
+                activaAnterior,
+                true,
+                "Sincronización automática de cámaras con novedades."
+        );
     }
 
     private Notificacion obtenerOCrear(String tipo) {
@@ -120,13 +175,77 @@ public class NotificacionService {
         notificacionRepository.findByTipo(tipo)
                 .ifPresent(notificacion -> {
                     if (Boolean.TRUE.equals(notificacion.getActiva())) {
+                        Integer conteoAnterior = notificacion.getConteoActual();
+                        Boolean activaAnterior = notificacion.getActiva();
+
                         notificacion.setActiva(false);
                         notificacion.setConteoActual(0);
                         notificacion.setLecturaId(tipo.toLowerCase() + "-0");
                         notificacion.setFechaResolucion(LocalDateTime.now());
-                        notificacionRepository.save(notificacion);
+
+                        Notificacion notificacionGuardada = notificacionRepository.save(notificacion);
+
+                        registrarHistorial(
+                                notificacionGuardada,
+                                "RESUELTA",
+                                conteoAnterior,
+                                0,
+                                activaAnterior,
+                                false,
+                                "La notificación fue resuelta porque ya no existen pendientes activos."
+                        );
                     }
                 });
+    }
+
+    private String determinarEventoSincronizacion(
+        boolean esNueva,
+        Boolean activaAnterior,
+        Integer conteoAnterior,
+        int conteoNuevo
+    ) {
+        if (esNueva) {
+            return "CREADA";
+        }
+
+        if (!Boolean.TRUE.equals(activaAnterior)) {
+            return "REACTIVADA";
+        }
+
+        int conteoAnteriorSeguro = conteoAnterior != null ? conteoAnterior : 0;
+
+        if (conteoAnteriorSeguro != conteoNuevo) {
+            return "ACTUALIZADA";
+        }
+
+        return null;
+    }
+
+    private void registrarHistorial(
+            Notificacion notificacion,
+            String evento,
+            Integer conteoAnterior,
+            Integer conteoNuevo,
+            Boolean activaAnterior,
+            Boolean activaNueva,
+            String observacion
+    ) {
+        HistorialNotificacion historial = new HistorialNotificacion();
+
+        historial.setNotificacion(notificacion);
+        historial.setTipo(notificacion.getTipo());
+        historial.setEvento(evento);
+        historial.setTitulo(notificacion.getTitulo());
+        historial.setMensaje(notificacion.getMensaje());
+        historial.setDetalle(notificacion.getDetalle());
+        historial.setConteoAnterior(conteoAnterior);
+        historial.setConteoNuevo(conteoNuevo);
+        historial.setActivaAnterior(activaAnterior);
+        historial.setActivaNueva(activaNueva);
+        historial.setObservacion(observacion);
+        historial.setFechaHora(LocalDateTime.now());
+
+        historialNotificacionRepository.save(historial);
     }
 
     private int convertirAEnteroSeguro(Long valor) {
