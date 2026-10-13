@@ -359,3 +359,126 @@
   text-align: center;
   font-size: 14px;
 }
+
+/* =========================================================
+   RESPONSIVE - NOTIFICACIONES
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .notificaciones-panel {
+    width: min(360px, calc(100vw - 28px));
+    right: -12px;
+    padding: 14px;
+  }
+
+  .notificaciones-panel::before {
+    right: 22px;
+  }
+
+  .notificaciones-header {
+    gap: 10px;
+  }
+
+  .notificaciones-header h3 {
+    font-size: 16px;
+  }
+
+  .notificaciones-header p {
+    font-size: 12px;
+  }
+
+  .notificaciones-actualizacion {
+    font-size: 10.5px;
+  }
+
+  .notificaciones-lista {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 3px;
+  }
+
+  .notificacion-item {
+    padding: 12px;
+  }
+
+  .notificacion-top {
+    gap: 8px;
+  }
+
+  .notificacion-top strong {
+    font-size: 13px;
+  }
+
+  .notificacion-item span,
+  .notificacion-detalle {
+    font-size: 11.5px;
+  }
+
+  .notificacion-meta {
+    gap: 6px;
+  }
+
+  .notificacion-etiqueta,
+  .notificacion-prioridad {
+    font-size: 10px;
+  }
+
+  .notificacion-accion {
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-header-actions {
+    gap: 8px;
+  }
+
+  .btn-notificaciones {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+  }
+
+  .notificaciones-panel {
+    position: fixed;
+    top: 76px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 96px);
+    overflow: hidden;
+    border-radius: 18px;
+  }
+
+  .notificaciones-panel::before {
+    display: none;
+  }
+
+  .notificaciones-header {
+    align-items: flex-start;
+  }
+
+  .notificaciones-header-acciones {
+    gap: 6px;
+  }
+
+  .btn-accion-notificacion {
+    width: 30px;
+    height: 30px;
+  }
+
+  .notificaciones-lista {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+  }
+
+  .notificacion-top {
+    align-items: flex-start;
+  }
+
+  .notificacion-estado {
+    font-size: 9px;
+    padding: 4px 7px;
+  }
+}
