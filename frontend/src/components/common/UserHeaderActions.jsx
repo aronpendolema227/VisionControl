@@ -174,6 +174,27 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     });
   };
 
+  const marcarTodasComoLeidas = () => {
+    const idsNotificacionesActuales = notificaciones
+      .map((notificacion) => notificacion.lecturaId)
+      .filter(Boolean);
+
+    if (idsNotificacionesActuales.length === 0) return;
+
+    setNotificacionesLeidas((leidasActuales) => {
+      const nuevasLeidas = Array.from(
+        new Set([...leidasActuales, ...idsNotificacionesActuales])
+      );
+
+      localStorage.setItem(
+        storageKeyNotificaciones,
+        JSON.stringify(nuevasLeidas)
+      );
+
+      return nuevasLeidas;
+    });
+  };
+
   const abrirNotificacion = (notificacion) => {
     marcarNotificacionComoLeida(notificacion);
 
@@ -213,6 +234,16 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                     : `${notificacionesNoLeidas.length} nuevas de ${notificaciones.length} disponibles`}
                 </p>
               </div>
+
+              {notificacionesNoLeidas.length > 0 && (
+                <button
+                  type="button"
+                  className="btn-marcar-leidas"
+                  onClick={marcarTodasComoLeidas}
+                >
+                  Marcar todas
+                </button>
+              )}
             </div>
 
             <div className="notificaciones-lista">
