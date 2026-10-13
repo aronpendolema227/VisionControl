@@ -1,8 +1,52 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserAlt, FaBell, FaSyncAlt, FaEraser } from "react-icons/fa";
-import { obtenerResumenOperativo } from "../../services/reporteService";
+import { obtenerNotificacionesPorRol } from "../../services/notificacionService";
 import "../../styles/notificaciones.css";
+
+const convertirStateJson = (stateJson) => {
+  if (!stateJson) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(stateJson);
+  } catch (error) {
+    console.error("Error al convertir stateJson de notificación:", error);
+    return null;
+  }
+};
+
+const obtenerTipoVisual = (tipo) => {
+  if (tipo === "GLPI_ACTIVOS") {
+    return "glpi";
+  }
+
+  if (tipo === "CAMARAS_CON_NOVEDAD") {
+    return "camaras";
+  }
+
+  return "general";
+};
+
+const normalizarNotificacion = (notificacion) => {
+  return {
+    id: notificacion.idNotificacion || notificacion.tipo,
+    lecturaId: notificacion.lecturaId,
+    titulo: notificacion.titulo,
+    mensaje: notificacion.mensaje,
+    detalle: notificacion.detalle,
+    accionTexto: notificacion.accionTexto,
+    prioridad: notificacion.prioridad,
+    etiqueta: notificacion.etiqueta,
+    tipo: obtenerTipoVisual(notificacion.tipo),
+    tipoOriginal: notificacion.tipo,
+    ruta: notificacion.ruta,
+    state: convertirStateJson(notificacion.stateJson),
+    conteoActual: notificacion.conteoActual,
+    fechaActualizacion: notificacion.fechaActualizacion,
+  };
+};
 
 function UserHeaderActions({ username, rol, onCerrarSesion }) {
   const navigate = useNavigate();
@@ -13,22 +57,30 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
   
 
   const [panelAbierto, setPanelAbierto] = useState(false);
-  const [resumen, setResumen] = useState(null);
+  const [notificaciones, setNotificaciones] = useState([]);
   const [cargandoNotificaciones, setCargandoNotificaciones] = useState(false);
   const [ultimaActualizacion, setUltimaActualizacion] = useState(null);
 
   const [notificacionesLeidas, setNotificacionesLeidas] = useState([]);
 
-  const cargarResumenNotificaciones = useCallback(
+  const cargarNotificaciones = useCallback(
     async ({ mostrarCarga = false, reiniciarLeidas = false } = {}) => {
+      if (!rolNormalizado) {
+        return;
+      }
+
       try {
         if (mostrarCarga) {
           setCargandoNotificaciones(true);
         }
 
-        const data = await obtenerResumenOperativo();
+        const data = await obtenerNotificacionesPorRol(rolNormalizado);
 
-        setResumen(data);
+        const notificacionesFormateadas = Array.isArray(data)
+          ? data.map(normalizarNotificacion)
+          : [];
+
+        setNotificaciones(notificacionesFormateadas);
         setUltimaActualizacion(new Date());
 
         if (reiniciarLeidas) {
@@ -42,19 +94,19 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         }
       }
     },
-    []
+    [rolNormalizado]
   );
 
   useEffect(() => {
     const cargaInicial = setTimeout(() => {
-      cargarResumenNotificaciones({
+      cargarNotificaciones({
         mostrarCarga: true,
         reiniciarLeidas: false,
       });
     }, 0);
 
     const intervaloNotificaciones = setInterval(() => {
-      cargarResumenNotificaciones({
+      cargarNotificaciones({
         mostrarCarga: false,
         reiniciarLeidas: true,
       });
@@ -64,7 +116,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
       clearTimeout(cargaInicial);
       clearInterval(intervaloNotificaciones);
     };
-  }, [cargarResumenNotificaciones]);
+  }, [cargarNotificaciones]);
 
   useEffect(() => {
     if (!panelAbierto) return;
@@ -93,73 +145,17 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     };
   }, [panelAbierto]);
 
-const formatearUltimaActualizacion = (fecha) => {
-  if (!fecha) {
-    return "Sin actualizar";
-  }
-
-  return fecha.toLocaleTimeString("es-EC", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-
-  const notificaciones = useMemo(() => {
-    const lista = [];
-
-    const glpiActivos = Number(resumen?.glpiActivos || 0);
-    const noOperativas = Number(resumen?.noOperativas || 0);
-
-    const puedeVerGlpi =
-      rolNormalizado === "SUPER_ADMIN" ||
-      rolNormalizado === "ANALISTA_TECNOLOGIA" ||
-      rolNormalizado === "ANALISTA_OPERACIONES";
-
-    const puedeVerCamarasConNovedad =
-      rolNormalizado === "SUPER_ADMIN" ||
-      rolNormalizado === "ANALISTA_TECNOLOGIA" ||
-      rolNormalizado === "ANALISTA_OPERACIONES";
-
-    if (puedeVerGlpi && glpiActivos > 0) {
-      lista.push({
-        id: "glpi-activos",
-        lecturaId: `glpi-activos-${glpiActivos}`,
-        titulo: "Tickets GLPI activos",
-        mensaje: `Existen ${glpiActivos} tickets GLPI pendientes de seguimiento.`,
-        detalle: "Requiere revisión técnica o actualización del seguimiento.",
-        accionTexto: "Ver reportes GLPI",
-        prioridad: "Seguimiento técnico",
-        etiqueta: "GLPI",
-        tipo: "glpi",
-        ruta: "/reportes",
-        state: {
-          filtroNotificacion: "GLPI_ACTIVOS",
-          soloGlpiActivos: true,
-        },
-      });
+  const formatearUltimaActualizacion = (fecha) => {
+    if (!fecha) {
+      return "Sin actualizar";
     }
 
-    if (puedeVerCamarasConNovedad && noOperativas > 0) {
-      lista.push({
-        id: "camaras-no-operativas",
-        lecturaId: `camaras-no-operativas-${noOperativas}`,
-        titulo: "Cámaras con novedades",
-        mensaje: `Hay ${noOperativas} cámaras no operativas o con novedades registradas.`,
-        detalle: "Requiere revisión operativa del estado de las cámaras.",
-        accionTexto: "Ver cámaras filtradas",
-        prioridad: "Control operativo",
-        etiqueta: "CÁMARAS",
-        tipo: "camaras",
-        ruta: "/camaras",
-        state: {
-          filtroNotificacion: "CAMARAS_CON_NOVEDAD",
-          estado: "NO OPERATIVA",
-        },
-      });
-    }
+    return fecha.toLocaleTimeString("es-EC", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
-    return lista;
-  }, [resumen, rolNormalizado]);
 
   const notificacionesNoLeidas = useMemo(() => {
     return notificaciones.filter(
@@ -192,7 +188,7 @@ const formatearUltimaActualizacion = (fecha) => {
   };
 
   const actualizarNotificacionesManual = () => {
-    cargarResumenNotificaciones({
+    cargarNotificaciones({
       mostrarCarga: true,
       reiniciarLeidas: true,
     });
@@ -275,7 +271,7 @@ const formatearUltimaActualizacion = (fecha) => {
               ) : (
                 notificacionesNoLeidas.map((notificacion) => (
                   <button
-                    key={notificacion.id}
+                    key={notificacion.id || notificacion.lecturaId}
                     type="button"
                     className="notificacion-item nueva"
                     onClick={() => abrirNotificacion(notificacion)}
