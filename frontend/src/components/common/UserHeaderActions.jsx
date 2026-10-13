@@ -15,6 +15,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
   const [panelAbierto, setPanelAbierto] = useState(false);
   const [resumen, setResumen] = useState(null);
   const [cargandoNotificaciones, setCargandoNotificaciones] = useState(false);
+  const [ultimaActualizacion, setUltimaActualizacion] = useState(null);
 
   const [notificacionesLeidas, setNotificacionesLeidas] = useState([]);
 
@@ -31,6 +32,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
 
         if (activo) {
           setResumen(data);
+          setUltimaActualizacion(new Date());
 
           if (esActualizacionAutomatica) {
             setNotificacionesLeidas([]);
@@ -84,7 +86,16 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     };
   }, [panelAbierto]);
 
+const formatearUltimaActualizacion = (fecha) => {
+  if (!fecha) {
+    return "Sin actualizar";
+  }
 
+  return fecha.toLocaleTimeString("es-EC", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
   const notificaciones = useMemo(() => {
     const lista = [];
@@ -211,6 +222,9 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                     ? "Cargando información..."
                     : `${notificacionesNoLeidas.length} nuevas de ${notificaciones.length} disponibles`}
                 </p>
+                <small className="notificaciones-actualizacion">
+                  Última actualización: {formatearUltimaActualizacion(ultimaActualizacion)}
+                </small>
               </div>
 
               {notificacionesNoLeidas.length > 0 && (

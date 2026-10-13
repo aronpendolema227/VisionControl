@@ -128,6 +128,14 @@
   font-size: 13px;
 }
 
+.notificaciones-actualizacion {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .btn-limpiar-notificaciones {
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 999px;
