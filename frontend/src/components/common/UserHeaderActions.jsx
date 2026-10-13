@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserAlt, FaBell } from "react-icons/fa";
 import { obtenerResumenOperativo } from "../../services/reporteService";
@@ -6,6 +6,7 @@ import "../../styles/notificaciones.css";
 
 function UserHeaderActions({ username, rol, onCerrarSesion }) {
   const navigate = useNavigate();
+  const notificacionesRef = useRef(null);
 
   const [panelAbierto, setPanelAbierto] = useState(false);
   const [resumen, setResumen] = useState(null);
@@ -40,6 +41,33 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
       activo = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!panelAbierto) return;
+
+    const manejarClickFuera = (event) => {
+      if (
+        notificacionesRef.current &&
+        !notificacionesRef.current.contains(event.target)
+      ) {
+        setPanelAbierto(false);
+      }
+    };
+
+    const manejarEscape = (event) => {
+      if (event.key === "Escape") {
+        setPanelAbierto(false);
+      }
+    };
+
+    document.addEventListener("mousedown", manejarClickFuera);
+    document.addEventListener("keydown", manejarEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", manejarClickFuera);
+      document.removeEventListener("keydown", manejarEscape);
+    };
+  }, [panelAbierto]);
 
   const notificaciones = useMemo(() => {
     const lista = [];
@@ -99,7 +127,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
 
   return (
     <div className="user-header-actions">
-      <div className="notificaciones-wrapper">
+      <div className="notificaciones-wrapper" ref={notificacionesRef}>
         <button
           type="button"
           className="btn-notificaciones"
