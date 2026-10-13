@@ -169,3 +169,17 @@
   text-align: center;
   font-size: 14px;
 }
+
+.notificacion-item.nueva {
+  border-color: rgba(34, 211, 238, 0.42);
+  background: rgba(37, 99, 235, 0.22);
+}
+
+.notificacion-item.leida {
+  opacity: 0.68;
+}
+
+.notificacion-item.leida strong,
+.notificacion-item.leida span {
+  color: #94a3b8;
+}

@@ -8,11 +8,32 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
   const navigate = useNavigate();
   const notificacionesRef = useRef(null);
 
+  const rolNormalizado = String(rol || "").toUpperCase();
+
+  const storageKeyNotificaciones = useMemo(() => {
+    const usuarioSeguro = String(username || "usuario")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+
+    return `visioncontrol_notificaciones_leidas_${usuarioSeguro}_${rolNormalizado}`;
+  }, [username, rolNormalizado]);
+
   const [panelAbierto, setPanelAbierto] = useState(false);
   const [resumen, setResumen] = useState(null);
   const [cargandoNotificaciones, setCargandoNotificaciones] = useState(false);
 
-  const rolNormalizado = String(rol || "").toUpperCase();
+  const [notificacionesLeidas, setNotificacionesLeidas] = useState(() => {
+    try {
+      const datosGuardados = localStorage.getItem(storageKeyNotificaciones);
+      const leidas = datosGuardados ? JSON.parse(datosGuardados) : [];
+
+      return Array.isArray(leidas) ? leidas : [];
+    } catch (error) {
+      console.error("Error al cargar notificaciones leídas:", error);
+      return [];
+    }
+  });
 
   useEffect(() => {
     let activo = true;
@@ -69,6 +90,8 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     };
   }, [panelAbierto]);
 
+
+
   const notificaciones = useMemo(() => {
     const lista = [];
 
@@ -88,6 +111,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     if (puedeVerGlpi && glpiActivos > 0) {
       lista.push({
         id: "glpi-activos",
+        lecturaId: `glpi-activos-${glpiActivos}`,
         titulo: "Tickets GLPI activos",
         mensaje: `Existen ${glpiActivos} tickets GLPI pendientes de seguimiento.`,
         etiqueta: "GLPI",
@@ -103,6 +127,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     if (puedeVerCamarasConNovedad && noOperativas > 0) {
       lista.push({
         id: "camaras-no-operativas",
+        lecturaId: `camaras-no-operativas-${noOperativas}`,
         titulo: "Cámaras con novedades",
         mensaje: `Hay ${noOperativas} cámaras no operativas o con novedades registradas.`,
         etiqueta: "CÁMARAS",
@@ -118,8 +143,36 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
     return lista;
   }, [resumen, rolNormalizado]);
 
+  const notificacionesNoLeidas = useMemo(() => {
+    return notificaciones.filter(
+      (notificacion) => !notificacionesLeidas.includes(notificacion.lecturaId)
+    );
+  }, [notificaciones, notificacionesLeidas]);
+
+  const marcarNotificacionComoLeida = (notificacion) => {
+    if (!notificacion.lecturaId) return;
+
+    setNotificacionesLeidas((leidasActuales) => {
+      if (leidasActuales.includes(notificacion.lecturaId)) {
+        return leidasActuales;
+      }
+
+      const nuevasLeidas = [...leidasActuales, notificacion.lecturaId];
+
+      localStorage.setItem(
+        storageKeyNotificaciones,
+        JSON.stringify(nuevasLeidas)
+      );
+
+      return nuevasLeidas;
+    });
+  };
+
   const abrirNotificacion = (notificacion) => {
+    marcarNotificacionComoLeida(notificacion);
+
     setPanelAbierto(false);
+
     navigate(notificacion.ruta, {
       state: notificacion.state || null,
     });
@@ -136,9 +189,9 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         >
           <FaBell />
 
-          {notificaciones.length > 0 && (
+          {notificacionesNoLeidas.length > 0 && (
             <span className="notificaciones-badge">
-              {notificaciones.length}
+              {notificacionesNoLeidas.length}
             </span>
           )}
         </button>
@@ -151,7 +204,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                 <p>
                   {cargandoNotificaciones
                     ? "Cargando información..."
-                    : `${notificaciones.length} notificaciones disponibles`}
+                    : `${notificacionesNoLeidas.length} nuevas de ${notificaciones.length} disponibles`}
                 </p>
               </div>
             </div>
@@ -166,7 +219,9 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                   <button
                     key={notificacion.id}
                     type="button"
-                    className="notificacion-item"
+                    className={`notificacion-item ${
+                      notificacionesLeidas.includes(notificacion.lecturaId) ? "leida" : "nueva"
+                    }`}
                     onClick={() => abrirNotificacion(notificacion)}
                   >
                     <strong>{notificacion.titulo}</strong>
