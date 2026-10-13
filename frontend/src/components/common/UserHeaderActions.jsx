@@ -114,6 +114,9 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         lecturaId: `glpi-activos-${glpiActivos}`,
         titulo: "Tickets GLPI activos",
         mensaje: `Existen ${glpiActivos} tickets GLPI pendientes de seguimiento.`,
+        detalle: "Requiere revisión técnica o actualización del seguimiento.",
+        accionTexto: "Ver reportes GLPI",
+        prioridad: "Seguimiento técnico",
         etiqueta: "GLPI",
         tipo: "glpi",
         ruta: "/reportes",
@@ -130,6 +133,9 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         lecturaId: `camaras-no-operativas-${noOperativas}`,
         titulo: "Cámaras con novedades",
         mensaje: `Hay ${noOperativas} cámaras no operativas o con novedades registradas.`,
+        detalle: "Requiere revisión operativa del estado de las cámaras.",
+        accionTexto: "Ver cámaras filtradas",
+        prioridad: "Control operativo",
         etiqueta: "CÁMARAS",
         tipo: "camaras",
         ruta: "/camaras",
@@ -224,12 +230,41 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                     }`}
                     onClick={() => abrirNotificacion(notificacion)}
                   >
-                    <strong>{notificacion.titulo}</strong>
+                    <div className="notificacion-top">
+                      <strong>{notificacion.titulo}</strong>
+
+                      <small
+                        className={`notificacion-estado ${
+                          notificacionesLeidas.includes(notificacion.lecturaId)
+                            ? "leida"
+                            : "nueva"
+                        }`}
+                      >
+                        {notificacionesLeidas.includes(notificacion.lecturaId)
+                          ? "Leída"
+                          : "Nueva"}
+                      </small>
+                    </div>
+
                     <span>{notificacion.mensaje}</span>
 
-                    <small className={`notificacion-etiqueta ${notificacion.tipo}`}>
-                      {notificacion.etiqueta}
-                    </small>
+                    <p className="notificacion-detalle">
+                      {notificacion.detalle}
+                    </p>
+
+                    <div className="notificacion-meta">
+                      <small className={`notificacion-etiqueta ${notificacion.tipo}`}>
+                        {notificacion.etiqueta}
+                      </small>
+
+                      <small className="notificacion-prioridad">
+                        {notificacion.prioridad}
+                      </small>
+                    </div>
+
+                    <div className="notificacion-accion">
+                      {notificacion.accionTexto}
+                    </div>
                   </button>
                 ))
               )}

@@ -1,3 +1,7 @@
+/* =========================================================
+    NOTIFICACIONES - CONTENEDOR GENERAL
+   ========================================================= */
+
 .user-header-actions {
   position: relative;
   display: flex;
@@ -9,6 +13,11 @@
   position: relative;
   display: inline-flex;
 }
+
+
+/* =========================================================
+    BOTÓN DE NOTIFICACIONES
+   ========================================================= */
 
 .btn-notificaciones {
   width: 44px;
@@ -36,6 +45,11 @@
   box-shadow: 0 0 18px rgba(0, 145, 255, 0.35);
 }
 
+
+/* =========================================================
+    CONTADOR ROJO DE NOTIFICACIONES NUEVAS
+   ========================================================= */
+
 .notificaciones-badge {
   position: absolute;
   top: -6px;
@@ -53,6 +67,11 @@
   justify-content: center;
   border: 2px solid #0f172a;
 }
+
+
+/* =========================================================
+    PANEL DESPLEGABLE
+   ========================================================= */
 
 .notificaciones-panel {
   position: absolute;
@@ -81,6 +100,11 @@
   transform: rotate(45deg);
 }
 
+
+/* =========================================================
+    ENCABEZADO DEL PANEL
+   ========================================================= */
+
 .notificaciones-header {
   display: flex;
   justify-content: space-between;
@@ -104,11 +128,21 @@
   font-size: 13px;
 }
 
+
+/* =========================================================
+    LISTA DE NOTIFICACIONES
+   ========================================================= */
+
 .notificaciones-lista {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
+
+/* =========================================================
+    TARJETA BASE DE NOTIFICACIÓN
+   ========================================================= */
 
 .notificacion-item {
   width: 100%;
@@ -142,9 +176,103 @@
   line-height: 1.45;
 }
 
+
+/* =========================================================
+    ESTADO VISUAL: NUEVA / LEÍDA
+   ========================================================= */
+
+.notificacion-item.nueva {
+  border-color: rgba(34, 211, 238, 0.42);
+  background: rgba(37, 99, 235, 0.22);
+}
+
+.notificacion-item.leida {
+  opacity: 0.68;
+}
+
+.notificacion-item.leida strong,
+.notificacion-item.leida span {
+  color: #94a3b8;
+}
+
+.notificacion-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.notificacion-top strong {
+  margin-bottom: 0;
+}
+
+.notificacion-estado {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.notificacion-estado.nueva {
+  background: rgba(34, 211, 238, 0.16);
+  color: #67e8f9;
+}
+
+.notificacion-estado.leida {
+  background: rgba(148, 163, 184, 0.14);
+  color: #94a3b8;
+}
+
+
+/* =========================================================
+    INFORMACIÓN ADICIONAL DE LA NOTIFICACIÓN
+   ========================================================= */
+
+.notificacion-detalle {
+  margin: 7px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.notificacion-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.notificacion-prioridad {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.notificacion-accion {
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+    ETIQUETAS POR TIPO DE NOTIFICACIÓN
+   ========================================================= */
+
 .notificacion-etiqueta {
   display: inline-flex;
-  margin-top: 9px;
   padding: 5px 9px;
   border-radius: 999px;
   font-size: 11px;
@@ -161,6 +289,11 @@
   color: #fca5a5;
 }
 
+
+/* =========================================================
+    ESTADO VACÍO
+   ========================================================= */
+
 .notificacion-vacia {
   padding: 18px;
   border-radius: 16px;
@@ -168,18 +301,4 @@
   color: #94a3b8;
   text-align: center;
   font-size: 14px;
-}
-
-.notificacion-item.nueva {
-  border-color: rgba(34, 211, 238, 0.42);
-  background: rgba(37, 99, 235, 0.22);
-}
-
-.notificacion-item.leida {
-  opacity: 0.68;
-}
-
-.notificacion-item.leida strong,
-.notificacion-item.leida span {
-  color: #94a3b8;
 }
