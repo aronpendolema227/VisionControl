@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUserAlt, FaBell } from "react-icons/fa";
+import { FaUserAlt, FaBell, FaSyncAlt, FaEraser } from "react-icons/fa";
 import { obtenerResumenOperativo } from "../../services/reporteService";
 import "../../styles/notificaciones.css";
 
@@ -19,45 +19,52 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
 
   const [notificacionesLeidas, setNotificacionesLeidas] = useState([]);
 
-  useEffect(() => {
-    let activo = true;
-
-    const cargarResumen = async (esActualizacionAutomatica = false) => {
+  const cargarResumenNotificaciones = useCallback(
+    async ({ mostrarCarga = false, reiniciarLeidas = false } = {}) => {
       try {
-        if (!esActualizacionAutomatica) {
+        if (mostrarCarga) {
           setCargandoNotificaciones(true);
         }
 
         const data = await obtenerResumenOperativo();
 
-        if (activo) {
-          setResumen(data);
-          setUltimaActualizacion(new Date());
+        setResumen(data);
+        setUltimaActualizacion(new Date());
 
-          if (esActualizacionAutomatica) {
-            setNotificacionesLeidas([]);
-          }
+        if (reiniciarLeidas) {
+          setNotificacionesLeidas([]);
         }
       } catch (error) {
         console.error("Error al cargar notificaciones:", error);
       } finally {
-        if (activo && !esActualizacionAutomatica) {
+        if (mostrarCarga) {
           setCargandoNotificaciones(false);
         }
       }
-    };
+    },
+    []
+  );
 
-    cargarResumen(false);
+  useEffect(() => {
+    const cargaInicial = setTimeout(() => {
+      cargarResumenNotificaciones({
+        mostrarCarga: true,
+        reiniciarLeidas: false,
+      });
+    }, 0);
 
     const intervaloNotificaciones = setInterval(() => {
-      cargarResumen(true);
+      cargarResumenNotificaciones({
+        mostrarCarga: false,
+        reiniciarLeidas: true,
+      });
     }, 60000);
 
     return () => {
-      activo = false;
+      clearTimeout(cargaInicial);
       clearInterval(intervaloNotificaciones);
     };
-  }, []);
+  }, [cargarResumenNotificaciones]);
 
   useEffect(() => {
     if (!panelAbierto) return;
@@ -184,6 +191,13 @@ const formatearUltimaActualizacion = (fecha) => {
     );
   };
 
+  const actualizarNotificacionesManual = () => {
+    cargarResumenNotificaciones({
+      mostrarCarga: true,
+      reiniciarLeidas: true,
+    });
+  };
+
   const abrirNotificacion = (notificacion) => {
     marcarNotificacionComoLeida(notificacion);
 
@@ -227,15 +241,30 @@ const formatearUltimaActualizacion = (fecha) => {
                 </small>
               </div>
 
-              {notificacionesNoLeidas.length > 0 && (
+              <div className="notificaciones-header-acciones">
                 <button
                   type="button"
-                  className="btn-limpiar-notificaciones"
-                  onClick={limpiarNotificaciones}
+                  className="btn-accion-notificacion"
+                  onClick={actualizarNotificacionesManual}
+                  disabled={cargandoNotificaciones}
+                  title="Actualizar notificaciones"
+                  aria-label="Actualizar notificaciones"
                 >
-                  Limpiar
+                  <FaSyncAlt />
                 </button>
-              )}
+
+                {notificacionesNoLeidas.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn-accion-notificacion"
+                    onClick={limpiarNotificaciones}
+                    title="Limpiar notificaciones"
+                    aria-label="Limpiar notificaciones"
+                  >
+                    <FaEraser />
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="notificaciones-lista">

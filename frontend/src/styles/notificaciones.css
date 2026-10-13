@@ -136,17 +136,47 @@
   font-weight: 700;
 }
 
-.btn-limpiar-notificaciones {
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 999px;
-  padding: 7px 10px;
-  background: rgba(30, 41, 59, 0.72);
+.notificaciones-header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.notificaciones-header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-accion-notificacion {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
   color: #bfdbfe;
-  font-size: 11px;
-  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: 0.2s ease;
-  white-space: nowrap;
+}
+
+.btn-accion-notificacion svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-accion-notificacion:hover {
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.26);
+}
+
+.btn-accion-notificacion:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .btn-limpiar-notificaciones:hover {
