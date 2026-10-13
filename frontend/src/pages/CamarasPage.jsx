@@ -129,7 +129,12 @@ function CamarasPage() {
     tipoFallaTecnica: "",
     fechaInstalacion: "",
   });
-  
+  const filtroNotificacion = location.state?.filtroNotificacion || "";
+
+const estadoDesdeNotificacion =
+  filtroNotificacion === "CAMARAS_CON_NOVEDAD"
+    ? location.state?.estado || ""
+    : "";
   // CARGA INICIAL DE CÁMARAS
   // =========================================================
   // Apenas entra a la página, carga la primera página de cámaras desde el backend.
@@ -146,11 +151,13 @@ function CamarasPage() {
       try {
         setCargando(true);
 
+        
+
         const data = await obtenerCamarasFiltradas({
           busqueda: "",
           idProvincia: "",
           idCanton: "",
-          estado: "",
+          estado: estadoDesdeNotificacion,
           plataforma: "",
           convenio: "",
           idMarca: "",
@@ -164,10 +171,18 @@ function CamarasPage() {
           size: 10,
         });
 
+        
+
         if (!cancelado) {
           setCamaras(data.content || []);
           setTotalPaginas(data.totalPages || 0);
           setPaginaActual(data.number || 0);
+          setTotalElementos(data.totalElements || 0);
+
+          setFiltros((prevFiltros) => ({
+            ...prevFiltros,
+            estado: estadoDesdeNotificacion,
+          }));
         }
       } catch (error) {
         console.error("Error al cargar cámaras:", error);
@@ -188,7 +203,7 @@ function CamarasPage() {
     return () => {
       cancelado = true;
     };
-  }, [token, navigate]);
+  }, [token, navigate, estadoDesdeNotificacion]);
 
 
   // CARGA DE PROVINCIAS PARA EL SELECT

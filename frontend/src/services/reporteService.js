@@ -53,6 +53,10 @@ export const obtenerReporteCamaras = async (filtros = {}, page = 0, size = 20) =
     params.busquedaGeneral = filtros.busquedaGeneral.trim();
   }
 
+  if (filtros.soloGlpiActivos) {
+    params.soloGlpiActivos = true;
+  }
+
   const response = await axios.get(`${API_URL}/reportes/camaras`, {
     ...authHeaders(),
     params,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { MdDashboard } from "react-icons/md";
 import UserHeaderActions from "../components/common/UserHeaderActions";
@@ -30,7 +30,7 @@ import * as XLSX from "xlsx";
 
 function ReportesPage() {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const username = localStorage.getItem("username") || "Usuario";
   const rol = localStorage.getItem("rol") || "LECTOR";
   const esSuperAdmin = rol === "SUPER_ADMIN";
@@ -70,6 +70,7 @@ function ReportesPage() {
     idMarca: "",
     fechaInstalacion: "",
     busquedaGeneral: "",
+    soloGlpiActivos: false,
   });
 
   const [sugerenciasBusqueda, setSugerenciasBusqueda] = useState([]);
@@ -152,14 +153,30 @@ function ReportesPage() {
 
   useEffect(() => {
   const iniciarReportes = async () => {
+    const vieneDesdeGlpi =
+      location.state?.filtroNotificacion === "GLPI_ACTIVOS";
+
+    const filtrosDesdeNotificacion = {
+      idProvincia: "",
+      idCanton: "",
+      estadoActual: "",
+      idMarca: "",
+      fechaInstalacion: "",
+      busquedaGeneral: "",
+      soloGlpiActivos: vieneDesdeGlpi,
+    };
+
     await cargarDatosIniciales();
-    await cargarReporte(0);
+
+    setFiltros(filtrosDesdeNotificacion);
+
+    await cargarReporte(0, filtrosDesdeNotificacion);
   };
 
   iniciarReportes();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+}, [location.state]);
 
 
   const manejarCambioProvincia = async (idProvincia) => {
@@ -207,6 +224,7 @@ function ReportesPage() {
       idMarca: filtros.idMarca,
       fechaInstalacion: filtros.fechaInstalacion,
       busquedaGeneral: textoBusqueda,
+      soloGlpiActivos: filtros.soloGlpiActivos,
     };
 
     const temporizador = setTimeout(async () => {
@@ -228,6 +246,7 @@ function ReportesPage() {
     filtros.estadoActual,
     filtros.idMarca,
     filtros.fechaInstalacion,
+    filtros.soloGlpiActivos,
   ]);
 
   const manejarBuscar = () => {
@@ -243,6 +262,7 @@ function ReportesPage() {
       idMarca: "",
       fechaInstalacion: "",
       busquedaGeneral: "",
+      soloGlpiActivos: false,
     };
 
     setFiltros(filtrosLimpios);
@@ -558,6 +578,20 @@ const manejarDescargarExcel = async () => {
           </div>
 
           {error && <p className="sin-datos">{error}</p>}
+
+          {filtros.soloGlpiActivos && (
+            <div className="filtros-activos">
+              <span className="filtros-activos-titulo">Filtro activo:</span>
+
+              <button
+                type="button"
+                className="chip-filtro"
+                onClick={manejarLimpiar}
+              >
+                Tickets GLPI activos ×
+              </button>
+            </div>
+          )}
 
           <div className="filtros-camaras">
             <select

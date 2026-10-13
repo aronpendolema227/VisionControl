@@ -32,6 +32,7 @@ public class ReporteController {
 
             @RequestParam(required = false) String busquedaGeneral,
             @RequestParam(required = false) String ticketGlpi,
+            @RequestParam(required = false, defaultValue = "false") Boolean soloGlpiActivos,
 
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size
@@ -46,6 +47,7 @@ public class ReporteController {
                 idMarca,
                 fechaInstalacion,
                 textoBusqueda,
+                soloGlpiActivos,
                 page,
                 size
         );

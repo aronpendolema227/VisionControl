@@ -65,6 +65,10 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         etiqueta: "GLPI",
         tipo: "glpi",
         ruta: "/reportes",
+        state: {
+          filtroNotificacion: "GLPI_ACTIVOS",
+          soloGlpiActivos: true,
+        },
       });
     }
 
@@ -76,15 +80,21 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
         etiqueta: "CÁMARAS",
         tipo: "camaras",
         ruta: "/camaras",
+        state: {
+          filtroNotificacion: "CAMARAS_CON_NOVEDAD",
+          estado: "NO OPERATIVA",
+        },
       });
     }
 
     return lista;
   }, [resumen, rolNormalizado]);
 
-  const abrirNotificacion = (ruta) => {
+  const abrirNotificacion = (notificacion) => {
     setPanelAbierto(false);
-    navigate(ruta);
+    navigate(notificacion.ruta, {
+      state: notificacion.state || null,
+    });
   };
 
   return (
@@ -129,7 +139,7 @@ function UserHeaderActions({ username, rol, onCerrarSesion }) {
                     key={notificacion.id}
                     type="button"
                     className="notificacion-item"
-                    onClick={() => abrirNotificacion(notificacion.ruta)}
+                    onClick={() => abrirNotificacion(notificacion)}
                   >
                     <strong>{notificacion.titulo}</strong>
                     <span>{notificacion.mensaje}</span>

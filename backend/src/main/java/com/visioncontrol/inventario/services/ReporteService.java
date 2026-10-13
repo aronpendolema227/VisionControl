@@ -22,16 +22,17 @@ public class ReporteService {
     private EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public Page<ReporteCamaraDTO> listarCamarasReporte(
+        public Page<ReporteCamaraDTO> listarCamarasReporte(
             Integer idProvincia,
             Integer idCanton,
             String estadoActual,
             Integer idMarca,
             LocalDate fechaInstalacion,
             String busquedaGeneral,
+            Boolean soloGlpiActivos,
             int page,
             int size
-    ) {
+        ) {
         int pageSeguro = Math.max(page, 0);
         int sizeSeguro = size <= 0 ? 20 : Math.min(size, 100);
 
@@ -147,6 +148,13 @@ public class ReporteService {
                         OR UPPER(TRIM(COALESCE(a.grupo_operativo, ''))) LIKE UPPER(CONCAT('%', TRIM(:busquedaGeneral), '%'))
                         OR COALESCE(TO_CHAR(c.fecha_instalacion, 'YYYY-MM-DD'), '') LIKE CONCAT('%', TRIM(:busquedaGeneral), '%')
                     )
+                    """);
+        }
+
+        if (Boolean.TRUE.equals(soloGlpiActivos)) {
+            where.append("""
+                    AND TRIM(COALESCE(hn.ticket_glpi, '')) <> ''
+                    AND (hn.resuelto_glpi IS NULL OR hn.resuelto_glpi = false)
                     """);
         }
 
