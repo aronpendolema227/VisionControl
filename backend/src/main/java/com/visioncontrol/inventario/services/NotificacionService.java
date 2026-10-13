@@ -1,5 +1,6 @@
 package com.visioncontrol.inventario.services;
 
+import com.visioncontrol.inventario.dto.response.HistorialNotificacionResponseDTO;
 import com.visioncontrol.inventario.dto.response.NotificacionResponseDTO;
 import com.visioncontrol.inventario.entities.Notificacion;
 import com.visioncontrol.inventario.repositories.CamaraRepository;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.visioncontrol.inventario.entities.HistorialNotificacion;
 import com.visioncontrol.inventario.repositories.HistorialNotificacionRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,6 +50,22 @@ public class NotificacionService {
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<HistorialNotificacionResponseDTO> listarHistorialNotificaciones(
+            Pageable pageable,
+            String tipo
+    ) {
+        if (tipo == null || tipo.trim().isEmpty()) {
+            return historialNotificacionRepository
+                    .findAllByOrderByFechaHoraDesc(pageable)
+                    .map(this::toHistorialResponseDTO);
+        }
+
+        return historialNotificacionRepository
+                .findByTipoOrderByFechaHoraDesc(tipo.trim().toUpperCase(), pageable)
+                .map(this::toHistorialResponseDTO);
     }
 
     private void sincronizarNotificacionesOperativas() {
@@ -287,6 +307,30 @@ public class NotificacionService {
                 notificacion.getConteoActual(),
                 notificacion.getFechaCreacion(),
                 notificacion.getFechaActualizacion()
+        );
+    }
+
+    private HistorialNotificacionResponseDTO toHistorialResponseDTO(
+        HistorialNotificacion historial
+    ) {
+        Long idNotificacion = historial.getNotificacion() != null
+                ? historial.getNotificacion().getIdNotificacion()
+                : null;
+
+        return new HistorialNotificacionResponseDTO(
+                historial.getIdHistorialNotificacion(),
+                idNotificacion,
+                historial.getTipo(),
+                historial.getEvento(),
+                historial.getTitulo(),
+                historial.getMensaje(),
+                historial.getDetalle(),
+                historial.getConteoAnterior(),
+                historial.getConteoNuevo(),
+                historial.getActivaAnterior(),
+                historial.getActivaNueva(),
+                historial.getObservacion(),
+                historial.getFechaHora()
         );
     }
 }

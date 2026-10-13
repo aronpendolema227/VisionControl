@@ -1,13 +1,13 @@
 package com.visioncontrol.inventario.repositories;
 
 import com.visioncontrol.inventario.entities.HistorialNotificacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface HistorialNotificacionRepository extends JpaRepository<HistorialNotificacion, Long> {
 
-    List<HistorialNotificacion> findTop20ByOrderByFechaHoraDesc();
+    Page<HistorialNotificacion> findAllByOrderByFechaHoraDesc(Pageable pageable);
 
-    List<HistorialNotificacion> findByTipoOrderByFechaHoraDesc(String tipo);
+    Page<HistorialNotificacion> findByTipoOrderByFechaHoraDesc(String tipo, Pageable pageable);
 }
