@@ -136,12 +136,7 @@
   font-weight: 700;
 }
 
-.notificaciones-header-acciones {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
+
 
 .notificaciones-header-acciones {
   display: flex;
@@ -177,12 +172,6 @@
 .btn-accion-notificacion:disabled {
   opacity: 0.45;
   cursor: not-allowed;
-}
-
-.btn-limpiar-notificaciones:hover {
-  background: rgba(37, 99, 235, 0.32);
-  border-color: rgba(34, 211, 238, 0.35);
-  color: #ffffff;
 }
 
 
@@ -474,9 +463,7 @@
     align-items: flex-start;
   }
 
-  .notificaciones-header-acciones {
-    gap: 6px;
-  }
+  
 
   .btn-accion-notificacion {
     width: 30px;
