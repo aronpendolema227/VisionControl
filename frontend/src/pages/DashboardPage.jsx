@@ -5,6 +5,7 @@ import {MdDashboard} from "react-icons/md";
 import logoDark from "../assets/logo.png";
 import logoLight from "../assets/logo_light.png";
 import UserHeaderActions from "../components/common/UserHeaderActions";
+import ThemeToggle from "../components/common/ThemeToggle";
 import{
   FaVideo,
   FaFileContract,
@@ -266,11 +267,15 @@ function DashboardPage() {
             <p>Panel general del sistema de inventario de cámaras</p>
           </div>
 
-          <UserHeaderActions
-            username={username}
-            rol={rol}
-            onCerrarSesion={cerrarSesion}
-          />
+          <div className="dashboard-header-tools">
+            <ThemeToggle />
+
+            <UserHeaderActions
+              username={username}
+              rol={rol}
+              onCerrarSesion={cerrarSesion}
+            />
+          </div>
         </header>
 
         <section className="dashboard-cards">

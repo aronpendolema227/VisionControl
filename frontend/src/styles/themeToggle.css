@@ -1,0 +1,37 @@
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  background: var(--color-card-bg);
+  color: var(--color-texto-secundario);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-toggle:hover {
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.38);
+  box-shadow: 0 0 18px rgba(0, 145, 255, 0.35);
+}
+
+body.theme-light .theme-toggle {
+  background: rgba(255, 255, 255, 0.92);
+  color: #475569;
+  border-color: rgba(15, 23, 42, 0.12);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+body.theme-light .theme-toggle:hover {
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.75);
+}

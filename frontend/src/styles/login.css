@@ -252,3 +252,115 @@ Cambio de icons
   font-size: 26px;
   cursor: pointer;
 }
+
+/* =========================================================
+    BOTÓN DE TEMA - LOGIN
+   ========================================================= */
+
+.login-theme-toggle {
+  position: absolute;
+  top: 45px;
+  right: 120px;
+  z-index: 6;
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  color: #e5e7eb;
+}
+
+.login-theme-toggle:hover {
+  background: transparent;
+  box-shadow: none;
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+/* =========================================================
+    MODO CLARO - LOGIN
+   ========================================================= */
+
+body.theme-light .login-page {
+  background:
+    linear-gradient(
+      rgba(243, 244, 246, 0.86),
+      rgba(229, 231, 235, 0.9)
+    ),
+    url("../assets/fondo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #0f172a;
+}
+
+body.theme-light .hero-text h2 {
+  color: #0f172a;
+}
+
+body.theme-light .hero-text p {
+  color: #475569;
+}
+
+body.theme-light .login-card,
+body.theme-light .admin-modal-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(37, 99, 235, 0.28);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+  color: #0f172a;
+}
+
+body.theme-light .subtitle,
+body.theme-light .admin-modal-card p {
+  color: #64748b;
+}
+
+body.theme-light .login-card input,
+body.theme-light .admin-modal-card input {
+  background: rgba(241, 245, 249, 0.95);
+  border-color: rgba(100, 116, 139, 0.35);
+  color: #0f172a;
+}
+
+body.theme-light .login-card input::placeholder,
+body.theme-light .admin-modal-card input::placeholder {
+  color: #64748b;
+}
+
+body.theme-light .top-admin {
+  color: #475569;
+}
+
+body.theme-light .footer-login {
+  background: rgba(255, 255, 255, 0.78);
+  border-top-color: rgba(15, 23, 42, 0.12);
+  color: #475569;
+}
+
+body.theme-light .close-modal {
+  color: #0f172a;
+}
+
+body.theme-light .brand-logo {
+  width: 320px;
+  margin-top: -60px;
+  margin-left: -40px;
+}
+
+body.theme-light .login-theme-toggle {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #475569;
+}
+
+body.theme-light .login-theme-toggle:hover {
+  background: transparent;
+  box-shadow: none;
+  color: #0f172a;
+}

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
-import logo from "../assets/logo.png";
+import logoDark from "../assets/logo.png";
+import logoLight from "../assets/logo_light.png";
+import ThemeToggle from "../components/common/ThemeToggle";
 import {
   FaUserCog,
   FaLock,
@@ -15,6 +17,10 @@ import "../styles/login.css";
 
 function LoginPage() {
   const navigate = useNavigate();
+
+  const [temaClaro, setTemaClaro] = useState(
+    document.body.classList.contains("theme-light")
+  );
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -73,16 +79,37 @@ function LoginPage() {
     }
   };
 
+  useEffect(() => {
+    const verificarTema = () => {
+      setTemaClaro(document.body.classList.contains("theme-light"));
+    };
+
+    verificarTema();
+
+    const observadorTema = new MutationObserver(verificarTema);
+
+    observadorTema.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      observadorTema.disconnect();
+    };
+  }, []);
+
   return (
     <div className="login-page">
       <div className="brand">
         <img
-          src={logo}
+          src={temaClaro ? logoLight : logoDark}
           alt="VisionControl"
           className="brand-logo"
         />
         
       </div>
+
+      <ThemeToggle className="login-theme-toggle" />
 
       <div
         className="top-admin"
