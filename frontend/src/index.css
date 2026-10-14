@@ -2,6 +2,50 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-bg-general: #031428;
+  --color-bg-overlay: rgba(1, 15, 35, 0.9);
+  --color-bg-overlay-secundario: rgba(1, 15, 35, 0.92);
+
+  --color-sidebar-bg: rgba(3, 12, 28, 0.72);
+  --color-panel-bg: rgba(15, 23, 42, 0.72);
+  --color-card-bg: rgba(15, 23, 42, 0.65);
+
+  --color-texto-principal: #ffffff;
+  --color-texto-secundario: #cbd5e1;
+  --color-texto-muted: #94a3b8;
+
+  --color-borde: rgba(255, 255, 255, 0.12);
+  --color-borde-acento: rgba(34, 211, 238, 0.2);
+
+  --color-acento: #22d3ee;
+  --color-acento-hover: rgba(37, 99, 235, 0.38);
+
+  --shadow-panel: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+body.theme-light {
+  --color-bg-general: #f3f4f6;
+  --color-bg-overlay: rgba(243, 244, 246, 0.92);
+  --color-bg-overlay-secundario: rgba(229, 231, 235, 0.95);
+
+  --color-sidebar-bg: rgba(255, 255, 255, 0.86);
+  --color-panel-bg: rgba(255, 255, 255, 0.92);
+  --color-card-bg: rgba(255, 255, 255, 0.9);
+
+  --color-texto-principal: #0f172a;
+  --color-texto-secundario: #334155;
+  --color-texto-muted: #64748b;
+
+  --color-borde: rgba(15, 23, 42, 0.12);
+  --color-borde-acento: rgba(37, 99, 235, 0.2);
+
+  --color-acento: #2563eb;
+  --color-acento-hover: rgba(37, 99, 235, 0.12);
+
+  --shadow-panel: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
 html,
 body,
 #root {
@@ -14,5 +58,5 @@ body,
 body {
   overflow-x: hidden;
   font-family: Arial, sans-serif;
-  background: #031428;
+  background: var(--color-bg-general);
 }

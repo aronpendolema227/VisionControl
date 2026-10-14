@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {MdDashboard} from "react-icons/md";
-import logo from "../assets/logo.png";
+import logoDark from "../assets/logo.png";
+import logoLight from "../assets/logo_light.png";
 import UserHeaderActions from "../components/common/UserHeaderActions";
 import{
   FaVideo,
@@ -15,6 +16,9 @@ import "../styles/dashboard.css";
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const [temaClaro, setTemaClaro] = useState(
+    document.body.classList.contains("theme-light")
+  );
 
   const token = localStorage.getItem("token");
 
@@ -178,6 +182,25 @@ function DashboardPage() {
     };
   }, [token, navigate, esLector]);
 
+  useEffect(() => {
+    const verificarTema = () => {
+      setTemaClaro(document.body.classList.contains("theme-light"));
+    };
+
+    verificarTema();
+
+    const observadorTema = new MutationObserver(verificarTema);
+
+    observadorTema.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      observadorTema.disconnect();
+    };
+  }, []);
+
   const obtenerColorBitacora = (accion) => {
     if (accion === "CREAR") return "verde";
     if (accion === "ACTUALIZAR") return "amarillo";
@@ -199,7 +222,11 @@ function DashboardPage() {
     <div className="dashboard-page">
       <aside className="dashboard-sidebar">
         <div className="dashboard-logo">
-          <img src={logo} alt="VisionControl" className="dashboard-logo-img" />
+          <img
+            src={temaClaro ? logoLight : logoDark}
+            alt="VisionControl"
+            className="dashboard-logo-img"
+          />
         </div>
 
         <nav className="dashboard-menu">

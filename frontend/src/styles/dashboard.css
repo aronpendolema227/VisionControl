@@ -2,20 +2,20 @@
   min-height: 100vh;
   display: flex;
   background: linear-gradient(
-      rgba(1, 15, 35, 0.9),
-      rgba(1, 15, 35, 0.92)
+      var(--color-bg-overlay),
+      var(--color-bg-overlay-secundario)
     ),
     url("../assets/fondo.png");
   background-size: cover;
   background-position: center;
-  color: white;
+  color: var(--color-texto-principal);
 }
 
 .dashboard-sidebar {
   width: 250px;
   padding: 28px 18px;
-  border-right: 1px solid rgba(0, 229, 255, 0.18);
-  background: rgba(3, 12, 28, 0.72);
+  border-right: 1px solid var(--color-borde-acento);
+  background: var(--color-sidebar-bg);
   backdrop-filter: blur(12px);
 }
 
@@ -105,10 +105,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(15, 23, 42, 0.65);
+  background: var(--color-card-bg);
   padding: 12px 18px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--color-borde);
 }
 
 .btn-notificaciones {
@@ -228,11 +228,11 @@
 }
 
 .dashboard-panel {
-  background: rgba(15, 23, 42, 0.72);
+  background: var(--color-panel-bg);
   border-radius: 18px;
   padding: 24px;
-  border: 1px solid rgba(34, 211, 238, 0.2);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--color-borde-acento);
+  box-shadow: var(--shadow-panel);
 }
 
 .dashboard-panel h3 {
@@ -548,4 +548,124 @@
 
 .rendimiento-lista::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================================
+    MODO CLARO - DASHBOARD
+   ========================================================= */
+
+/* Logo y sidebar */
+body.theme-light .dashboard-logo {
+  height: 95px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+body.theme-light .dashboard-logo-img {
+  width: 220px;
+  transform: translateY(0);
+}
+
+body.theme-light .menu-item {
+  color: #475569;
+}
+
+body.theme-light .menu-item:hover,
+body.theme-light .menu-item.active {
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.38);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+/* Encabezado */
+body.theme-light .dashboard-page {
+  color: #0f172a;
+}
+
+body.theme-light .dashboard-header h2 {
+  color: #0f172a;
+}
+
+body.theme-light .dashboard-header p {
+  color: #64748b;
+}
+
+body.theme-light .dashboard-user {
+  color: #0f172a;
+}
+
+body.theme-light .dashboard-user p {
+  color: #64748b;
+}
+
+body.theme-light .user-avatar {
+  color: #64748b;
+}
+
+/* Paneles */
+body.theme-light .dashboard-panel h3 {
+  color: #0891b2;
+}
+
+body.theme-light .donut-legend div {
+  color: #334155;
+}
+
+body.theme-light .donut-legend b {
+  color: #0f172a;
+}
+
+body.theme-light .donut-center {
+  background: #0f172a;
+}
+
+/* Gráfico GLPI */
+body.theme-light .tickets-line-card,
+body.theme-light .sin-datos-chart {
+  background: rgba(241, 245, 249, 0.92);
+  border-color: rgba(37, 99, 235, 0.16);
+}
+
+body.theme-light .sin-datos-chart p,
+body.theme-light .sin-datos-texto {
+  color: #64748b;
+}
+
+body.theme-light .tickets-grid-line {
+  stroke: rgba(100, 116, 139, 0.25);
+}
+
+body.theme-light .tickets-point-value {
+  fill: #0f172a;
+}
+
+body.theme-light .tickets-line-labels {
+  color: #475569;
+}
+
+/* Rendimiento por cantón */
+body.theme-light .canton-row strong {
+  color: #0f172a;
+}
+
+body.theme-light .canton-row p {
+  color: #64748b;
+}
+
+body.theme-light .barra {
+  background: rgba(15, 23, 42, 0.18);
+  border-color: rgba(15, 23, 42, 0.16);
+}
+
+/* Bitácora */
+body.theme-light .bitacora-item p {
+  color: #334155;
+}
+
+body.theme-light .bitacora-item small {
+  color: #64748b;
+}
+
+body.theme-light .dashboard-empty {
+  color: #64748b;
 }
