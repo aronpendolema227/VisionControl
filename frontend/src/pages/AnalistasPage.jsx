@@ -14,7 +14,9 @@ import {
   FaUserSlash,
   FaUserCheck,
 } from "react-icons/fa";
+import ThemeToggle from "../components/common/ThemeToggle";
 import "../styles/analistas.css";
+
 
 
 
@@ -360,9 +362,14 @@ function AnalistasPage() {
     <div className="analistas-page">
       <div className="analistas-header">
         <h1>Gestión de Analistas</h1>
-        <div className="estado-sistema">
-          <FaCircle className="estado-sistema-icono" />
-          Estado del Sistema: Conectado
+
+        <div className="analistas-header-actions">
+          <ThemeToggle />
+
+          <div className="estado-sistema">
+            <FaCircle className="estado-sistema-icono" />
+            Conectado
+          </div>
         </div>
       </div>
 
@@ -495,14 +502,7 @@ function AnalistasPage() {
                 </button>
               </div>
 
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "20px",
-                  fontSize: "1.6rem",
-                  color: "#fff",
-                }}
-              >
+              <h2 className="analistas-lista-titulo">
                 {filtroAnalistas === "activos"
                   ? "Analistas Activos"
                   : "Analistas Inactivos"}
@@ -537,15 +537,12 @@ function AnalistasPage() {
                           {grupo.analistas.map((analista) => (
                             <div
                               key={analista.idAnalista}
-                              className="analista-card"
+                              className={
+                                analistaSeleccionado?.idAnalista === analista.idAnalista
+                                  ? "analista-card seleccionado"
+                                  : "analista-card"
+                              }
                               onClick={() => setAnalistaSeleccionado(analista)}
-                              style={{
-                                border:
-                                  analistaSeleccionado?.idAnalista === analista.idAnalista
-                                    ? "2px solid #22d3ee"
-                                    : "1px solid rgba(255, 255, 255, 0.15)",
-                                cursor: "pointer",
-                              }}
                             >
                               <div className="analista-card-left">
                                 <div className="analista-card-avatar">

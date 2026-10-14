@@ -4,14 +4,14 @@
 .analistas-page {
   min-height: 100vh;
   padding: 25px;
+  color: var(--color-texto-principal);
   background: linear-gradient(
-      rgba(1, 15, 35, 0.92),
-      rgba(1, 15, 35, 0.92)
+      var(--color-bg-overlay),
+      var(--color-bg-overlay-secundario)
     ),
-    url("../assets/ecu.png");
+    url("../assets/fondo.png");
   background-size: cover;
   background-position: center;
-  color: #ffffff;
 }
 
 /* Encabezado principal y estado del sistema  */
@@ -26,6 +26,43 @@
 .analistas-header h1 {
   margin: 0;
   font-size: 3rem;
+}
+
+.analistas-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Botón de tema en Analistas */
+.analistas-header-actions .theme-toggle,
+body.theme-light .analistas-header-actions .theme-toggle {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  color: #e5e7eb;
+}
+
+.analistas-header-actions .theme-toggle:hover,
+body.theme-light .analistas-header-actions .theme-toggle:hover {
+  background: transparent;
+  box-shadow: none;
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+body.theme-light .analistas-header-actions .theme-toggle {
+  color: #475569;
+}
+
+body.theme-light .analistas-header-actions .theme-toggle:hover {
+  color: #0f172a;
 }
 
 .estado-sistema {
@@ -256,11 +293,20 @@
 
 /* Grupos de analistas: Operaciones / Tecnología */
 
+.analistas-lista-titulo {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #ffffff;
+}
+
 .analistas-grupos-lista {
   display: flex;
   flex-direction: column;
   gap: 28px;
 }
+
+
 
 .analistas-grupo {
   padding: 22px;
@@ -333,13 +379,20 @@
   padding: 18px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .analista-card:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.11);
+}
+
+.analista-card.seleccionado {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.45);
 }
 
 .analista-card-left {
@@ -675,4 +728,155 @@
 .btn-reactivar svg {
   width: 17px;
   height: 17px;
+}
+
+/* =========================================================
+   MODO CLARO - ANALISTAS
+   ========================================================= */
+
+body.theme-light .analistas-page {
+  color: #0f172a;
+}
+
+/* Encabezado */
+body.theme-light .analistas-header h1 {
+  color: #0f172a;
+}
+
+body.theme-light .estado-sistema {
+  color: #16a34a;
+}
+
+body.theme-light .estado-sistema-icono {
+  color: #16a34a;
+  filter: none;
+}
+
+/* Tarjeta superior y panel principal */
+body.theme-light .analista-info,
+body.theme-light .panel-principal,
+body.theme-light .panel-principal-completo {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+body.theme-light .analista-perfil h2 {
+  color: #0f172a;
+}
+
+body.theme-light .analista-perfil p {
+  color: #475569;
+}
+
+body.theme-light .rol {
+  color: #2563eb;
+}
+
+/* Hero y tarjetas principales */
+body.theme-light .analistas-lista-hero {
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 35%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 249, 0.94));
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+}
+
+body.theme-light .analistas-lista-hero h2,
+body.theme-light .analistas-lista-titulo {
+  color: #0f172a;
+}
+
+body.theme-light .analistas-lista-hero p {
+  color: #475569;
+}
+
+/* Tarjetas de selección, grupos y formulario */
+body.theme-light .analistas-tipo-card,
+body.theme-light .analistas-grupo,
+body.theme-light .analistas-grupo-vacio,
+body.theme-light .analista-card,
+body.theme-light .form-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+}
+
+body.theme-light .analistas-tipo-card:hover,
+body.theme-light .analista-card:hover,
+body.theme-light .analista-card.seleccionado {
+  background: rgba(239, 246, 255, 0.98);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+body.theme-light .analista-card.seleccionado {
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+}
+
+body.theme-light .analistas-tipo-card h3,
+body.theme-light .analistas-grupo-header h3,
+body.theme-light .analista-card h3,
+body.theme-light .form-card h2 {
+  color: #0f172a;
+}
+
+body.theme-light .analistas-tipo-card p,
+body.theme-light .analistas-grupo-header p,
+body.theme-light .analistas-grupo-vacio p,
+body.theme-light .analista-card p,
+body.theme-light .analista-detalle,
+body.theme-light .form-subtitle {
+  color: #64748b !important;
+}
+
+/* Contadores */
+body.theme-light .analistas-tipo-card strong,
+body.theme-light .analistas-grupo-header span {
+  background: rgba(219, 234, 254, 0.85);
+  border-color: rgba(37, 99, 235, 0.22);
+  color: #1d4ed8;
+}
+
+/* Botones secundarios */
+body.theme-light .btn-volver-panel {
+  background: rgba(255, 255, 255, 0.92);
+  color: #1e40af;
+  border-color: rgba(37, 99, 235, 0.22);
+}
+
+body.theme-light .btn-volver-panel:hover {
+  background: rgba(219, 234, 254, 0.95);
+}
+
+body.theme-light .btn-volver-panel.secundario {
+  color: #475569;
+  border-color: rgba(100, 116, 139, 0.22);
+}
+
+/* Estado activo / inactivo */
+body.theme-light .estado-analista-card.activo {
+  color: #15803d;
+}
+
+body.theme-light .estado-analista-card.inactivo {
+  color: #b91c1c;
+}
+
+/* Formularios */
+body.theme-light .form-group label {
+  color: #334155;
+}
+
+body.theme-light .form-group input,
+body.theme-light .form-group select {
+  background: rgba(248, 250, 252, 0.96);
+  color: #0f172a;
+  border-color: rgba(100, 116, 139, 0.35);
+}
+
+body.theme-light .form-group input:focus,
+body.theme-light .form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
