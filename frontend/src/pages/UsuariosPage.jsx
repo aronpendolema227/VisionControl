@@ -19,6 +19,7 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import "../styles/usuarios.css";
+import ThemeToggle from "../components/common/ThemeToggle";
 
 function UsuariosPage() {
   const navigate = useNavigate();
@@ -323,9 +324,14 @@ function UsuariosPage() {
     <div className="usuarios-page">
       <div className="usuarios-header">
         <h1>Gestión de Usuarios</h1>
-        <div className="estado-sistema">
-          <FaCircle className="estado-sistema-icono" />
-          Conectado
+
+        <div className="usuarios-header-actions">
+          <ThemeToggle />
+
+          <div className="estado-sistema">
+            <FaCircle className="estado-sistema-icono" />
+            Conectado
+          </div>
         </div>
       </div>
 
