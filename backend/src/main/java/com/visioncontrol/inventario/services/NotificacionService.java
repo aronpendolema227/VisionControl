@@ -71,9 +71,13 @@ public class NotificacionService {
     private void sincronizarNotificacionesOperativas() {
         Long glpiActivos = historialNovedadRepository.contarGlpiActivos();
         Long camarasConNovedad = camaraRepository.contarDiferentesDeEstado("OPERATIVA");
+        Long novedadesConectividad = historialNovedadRepository.contarNovedadesConectividad();
+        Long novedadesMantenimiento = historialNovedadRepository.contarNovedadesMantenimiento();
 
         sincronizarGlpiActivos(glpiActivos);
         sincronizarCamarasConNovedad(camarasConNovedad);
+        sincronizarNovedadesConectividad(novedadesConectividad);
+        sincronizarNovedadesMantenimiento(novedadesMantenimiento);
     }
 
     private void sincronizarGlpiActivos(Long totalGlpiActivos) {
@@ -177,6 +181,110 @@ public class NotificacionService {
                 activaAnterior,
                 true,
                 "Sincronización automática de cámaras con novedades."
+        );
+    }
+
+    private void sincronizarNovedadesConectividad(Long totalNovedadesConectividad) {
+        int total = convertirAEnteroSeguro(totalNovedadesConectividad);
+
+        if (total <= 0) {
+            desactivarNotificacion("NOVEDADES_CONECTIVIDAD");
+            return;
+        }
+
+        Notificacion notificacion = obtenerOCrear("NOVEDADES_CONECTIVIDAD");
+
+        boolean esNueva = notificacion.getIdNotificacion() == null;
+        Integer conteoAnterior = esNueva ? null : notificacion.getConteoActual();
+        Boolean activaAnterior = esNueva ? null : notificacion.getActiva();
+
+        String evento = determinarEventoSincronizacion(
+                esNueva,
+                activaAnterior,
+                conteoAnterior,
+                total
+        );
+
+        if (evento == null) {
+            return;
+        }
+
+        notificacion.setTitulo("Novedades de conectividad");
+        notificacion.setMensaje("Existen " + total + " novedades asociadas a conectividad.");
+        notificacion.setDetalle("Requiere revisión de enlaces, red o pérdida de comunicación.");
+        notificacion.setAccionTexto("Ver reportes relacionados");
+        notificacion.setPrioridad("Revisión de conectividad");
+        notificacion.setEtiqueta("CONECTIVIDAD");
+        notificacion.setRuta("/reportes");
+        notificacion.setStateJson("{\"filtroNotificacion\":\"NOVEDADES_CONECTIVIDAD\",\"busquedaGeneral\":\"conect\"}");
+        notificacion.setRolesDestino(ROLES_OPERATIVOS);
+        notificacion.setConteoActual(total);
+        notificacion.setLecturaId("novedades-conectividad-" + total);
+        notificacion.setActiva(true);
+        notificacion.setFechaResolucion(null);
+
+        Notificacion notificacionGuardada = notificacionRepository.save(notificacion);
+
+        registrarHistorial(
+                notificacionGuardada,
+                evento,
+                conteoAnterior,
+                total,
+                activaAnterior,
+                true,
+                "Sincronización automática de novedades de conectividad."
+        );
+    }
+
+    private void sincronizarNovedadesMantenimiento(Long totalNovedadesMantenimiento) {
+        int total = convertirAEnteroSeguro(totalNovedadesMantenimiento);
+
+        if (total <= 0) {
+            desactivarNotificacion("NOVEDADES_MANTENIMIENTO");
+            return;
+        }
+
+        Notificacion notificacion = obtenerOCrear("NOVEDADES_MANTENIMIENTO");
+
+        boolean esNueva = notificacion.getIdNotificacion() == null;
+        Integer conteoAnterior = esNueva ? null : notificacion.getConteoActual();
+        Boolean activaAnterior = esNueva ? null : notificacion.getActiva();
+
+        String evento = determinarEventoSincronizacion(
+                esNueva,
+                activaAnterior,
+                conteoAnterior,
+                total
+        );
+
+        if (evento == null) {
+            return;
+        }
+
+        notificacion.setTitulo("Novedades de mantenimiento");
+        notificacion.setMensaje("Existen " + total + " novedades asociadas a mantenimiento o daño.");
+        notificacion.setDetalle("Requiere revisión técnica por daño, mantenimiento o intervención pendiente.");
+        notificacion.setAccionTexto("Ver reportes relacionados");
+        notificacion.setPrioridad("Mantenimiento técnico");
+        notificacion.setEtiqueta("MANTENIMIENTO");
+        notificacion.setRuta("/reportes");
+        notificacion.setStateJson("{\"filtroNotificacion\":\"NOVEDADES_MANTENIMIENTO\",\"busquedaGeneral\":\"manten\"}");
+        notificacion.setRolesDestino(ROLES_OPERATIVOS);
+        notificacion.setConteoActual(total);
+        notificacion.setLecturaId("novedades-mantenimiento-" + total);
+        notificacion.setActiva(true);
+        notificacion.setFechaResolucion(null);
+
+        Notificacion notificacionGuardada = notificacionRepository.save(notificacion);
+
+        registrarHistorial(
+                notificacionGuardada,
+                evento,
+                conteoAnterior,
+                total,
+                activaAnterior,
+                true,
+                "Sincronización automática de novedades de mantenimiento."
         );
     }
 

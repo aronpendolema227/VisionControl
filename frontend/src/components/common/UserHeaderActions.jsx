@@ -26,6 +26,14 @@ const obtenerTipoVisual = (tipo) => {
     return "camaras";
   }
 
+  if (tipo === "NOVEDADES_CONECTIVIDAD") {
+    return "conectividad";
+  }
+
+  if (tipo === "NOVEDADES_MANTENIMIENTO") {
+    return "mantenimiento";
+  }
+
   return "general";
 };
 

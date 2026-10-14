@@ -346,6 +346,21 @@
   color: #fca5a5;
 }
 
+.notificacion-etiqueta.conectividad {
+  background: rgba(14, 165, 233, 0.16);
+  color: #7dd3fc;
+}
+
+.notificacion-etiqueta.mantenimiento {
+  background: rgba(168, 85, 247, 0.16);
+  color: #d8b4fe;
+}
+
+.notificacion-etiqueta.general {
+  background: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+}
+
 
 /* =========================================================
     ESTADO VACÍO
