@@ -97,8 +97,84 @@
   color: #94a3b8;
 }
 
+/* ==========================================
+   HERRAMIENTAS DEL ENCABEZADO - CÁMARAS
+   ========================================== */
+
+.camaras-listado-page .camaras-header-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botón de tema: solo ícono */
+.camaras-listado-page .camaras-theme-toggle,
+body.theme-light .camaras-listado-page .camaras-theme-toggle {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.camaras-listado-page .camaras-theme-toggle {
+  color: #cbd5e1;
+}
+
+.camaras-listado-page .camaras-theme-toggle:hover,
+body.theme-light .camaras-listado-page .camaras-theme-toggle:hover {
+  background: transparent;
+  box-shadow: none;
+  transform: scale(1.15);
+}
+
+.camaras-listado-page .camaras-theme-toggle:hover {
+  color: #ffffff;
+}
+
+body.theme-light .camaras-listado-page .camaras-theme-toggle {
+  color: #475569;
+}
+
+body.theme-light .camaras-listado-page .camaras-theme-toggle:hover {
+  color: #0f172a;
+}
+
+/* ==========================================
+    LOGOTIPO SEGÚN EL TEMA
+   ========================================== */
+
+/* Modo oscuro: mostrar únicamente el logo oscuro */
+.camaras-listado-page .logo-box .logo-box-img.logo-dark {
+  display: block !important;
+}
+
+.camaras-listado-page .logo-box .logo-box-img.logo-light {
+  display: none !important;
+}
+
+/* Modo claro: mostrar únicamente el logo claro */
+body.theme-light .camaras-listado-page .logo-box .logo-box-img.logo-dark {
+  display: none !important;
+}
+
+body.theme-light .camaras-listado-page .logo-box .logo-box-img.logo-light {
+  display: block !important;
+  width: 220px;
+  height: auto;
+  transform: none;
+}
+
+/* Alinear el logo claro dentro del sidebar */
+body.theme-light .camaras-listado-page .logo-box {
+  height: 95px;
+  align-items: center;
+}
+
 /* ================================
-   USUARIO HEADER - MISMO ESTILO DASHBOARD
+    USUARIO HEADER - MISMO ESTILO DASHBOARD
 ================================ */
 
 .camaras-page .dashboard-user {
@@ -1078,4 +1154,249 @@ td {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* =========================================================
+    MODO CLARO - LISTADO PRINCIPAL DE CÁMARAS
+   ========================================================= */
+
+/* 1. Fondo general */
+body.theme-light .camaras-listado-page {
+  background:
+    linear-gradient(
+      var(--color-bg-overlay),
+      var(--color-bg-overlay-secundario)
+    ),
+    url("../assets/fondo.png");
+
+  background-size: cover;
+  background-position: center;
+  color: #0f172a;
+}
+
+/* 2. Menú lateral */
+body.theme-light .camaras-listado-page .camaras-sidebar {
+  background: rgba(255, 255, 255, 0.88);
+  border-right: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+body.theme-light .camaras-listado-page .camaras-sidebar button {
+  color: #475569;
+}
+
+body.theme-light .camaras-listado-page .camaras-sidebar button:hover,
+body.theme-light .camaras-listado-page .camaras-sidebar button.activo {
+  color: #ffffff;
+  background: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}
+
+/* 3. Encabezado */
+
+body.theme-light .camaras-listado-page .camaras-header h2 {
+  color: #0f172a;
+}
+
+body.theme-light .camaras-listado-page .camaras-header p {
+  color: #475569;
+}
+
+/* 4. Perfil de usuario */
+body.theme-light .camaras-listado-page .dashboard-user {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
+body.theme-light .camaras-listado-page .dashboard-user strong {
+  color: #0f172a;
+}
+
+body.theme-light .camaras-listado-page .dashboard-user p,
+body.theme-light .camaras-listado-page .user-avatar {
+  color: #64748b;
+}
+
+/* 
+body.theme-light .camaras-listado-page .btn-notificaciones {
+  background: rgba(255, 255, 255, 0.92);
+  color: #475569;
+  border-color: rgba(15, 23, 42, 0.12);
+}
+*/
+
+/* 5. Panel de filtros y tabla */
+
+body.theme-light .camaras-listado-page .filtros-panel,
+body.theme-light .camaras-listado-page .tabla-panel {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+}
+
+/* 6. Campos de búsqueda */
+
+body.theme-light .camaras-listado-page .buscador-principal input,
+body.theme-light .camaras-listado-page .filtros-grid select {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+/* Texto del buscador */
+
+body.theme-light .camaras-listado-page .buscador-principal input::placeholder {
+  color: #475569;
+}
+
+/* Campos deshabilitados */
+
+body.theme-light .camaras-listado-page .filtros-grid select:disabled {
+  background: #e9eef5;
+  color: #64748b;
+}
+
+/* 7. Encabezado de tabla */
+body.theme-light .camaras-listado-page .tabla-header h3 {
+  color: #0891b2;
+}
+
+body.theme-light .camaras-listado-page .tabla-header p,
+body.theme-light .camaras-listado-page .total-camaras {
+  color: #475569;
+}
+
+/* 8. Tabla de cámaras */
+body.theme-light .camaras-listado-page .tabla-contenedor table {
+  background: transparent;
+}
+
+body.theme-light .camaras-listado-page .tabla-contenedor thead {
+  background: #e9eef5;
+}
+
+body.theme-light .camaras-listado-page .tabla-contenedor th {
+  color: #334155;
+  border-bottom-color: #cbd5e1;
+}
+
+body.theme-light .camaras-listado-page .tabla-contenedor td {
+  color: #334155;
+  border-bottom-color: #e2e8f0;
+}
+
+body.theme-light .camaras-listado-page .tabla-contenedor tbody tr:hover {
+  background: rgba(219, 234, 254, 0.35);
+}
+
+/* 9. Etiquetas de estado */
+body.theme-light .camaras-listado-page .estado.operativa {
+  color: #15803d;
+}
+
+body.theme-light .camaras-listado-page .estado.no-operativa {
+  color: #b91c1c;
+}
+
+body.theme-light .camaras-listado-page .estado.sin-servicio {
+  color: #7e22ce;
+}
+
+body.theme-light .camaras-listado-page .estado.falla-tecnica {
+  color: #c2410c;
+}
+
+body.theme-light .camaras-listado-page .estado.conectividad {
+  color: #a16207;
+}
+
+body.theme-light .camaras-listado-page .estado.desconocido {
+  color: #475569;
+}
+
+/* 10. Acciones de cámaras */
+body.theme-light .camaras-listado-page .btn-ver {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.12);
+}
+
+body.theme-light .camaras-listado-page .btn-editar-camara {
+  color: #a16207;
+  background: rgba(245, 158, 11, 0.15);
+}
+
+/* 11. Filtros activos */
+body.theme-light .camaras-listado-page .filtros-activos {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(37, 99, 235, 0.18);
+}
+
+body.theme-light .camaras-listado-page .filtros-activos-titulo {
+  color: #1d4ed8;
+}
+
+body.theme-light .camaras-listado-page .chip-filtro {
+  color: #1e40af;
+  background: rgba(219, 234, 254, 0.8);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* 12. Paginación */
+
+body.theme-light .camaras-listado-page .paginacion span {
+  background: rgba(219, 234, 254, 0.95);
+  color: #1d4ed8;
+}
+
+
+body.theme-light .camaras-listado-page .sin-datos {
+  color: #64748b;
+}
+
+/* =========================================================
+    MODO CLARO - DETALLE DE CÁMARA
+   ========================================================= */
+
+/* Contenedor principal */
+body.theme-light .camaras-listado-page .modal-detalle-camara {
+  background: #ffffff;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* Encabezado del modal */
+body.theme-light .camaras-listado-page .modal-detalle-header h3 {
+  color: #0891b2;
+}
+
+/* Nombre de la cámara debajo del título */
+body.theme-light .camaras-listado-page .modal-detalle-header p {
+  color: #475569;
+}
+
+/* Tarjetas individuales de información */
+body.theme-light .camaras-listado-page .detalle-grid > div {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+/* Etiquetas de los datos */
+body.theme-light .camaras-listado-page .detalle-grid span {
+  color: #475569;
+}
+
+body.theme-light .camaras-listado-page .detalle-grid strong {
+  color: #0f172a;
+}
+
+/* Botón copiar coordenadas */
+body.theme-light .camaras-listado-page .btn-copiar {
+  background: #e2e8f0;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+body.theme-light .camaras-listado-page .btn-copiar:hover {
+  background: #cbd5e1;
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logoDark from "../assets/logo.png";
+import logoLight from "../assets/logo_light.png";
+import ThemeToggle from "../components/common/ThemeToggle";
 import {MdDashboard} from "react-icons/md";
 import UserHeaderActions from "../components/common/UserHeaderActions";
 import {
@@ -1052,13 +1054,23 @@ const mostrarPoste = (camara) => {
   };
 
   return (
-    <div className="camaras-page">
+    <div className="camaras-page camaras-listado-page">
       {/* =====================================================
           SIDEBAR IZQUIERDO
           ===================================================== */}
       <aside className="camaras-sidebar">
         <div className="logo-box">
-          <img src={logo} alt="VisionControl" className="logo-box-img" />
+          <img
+            src={logoDark}
+            alt="VisionControl"
+            className="logo-box-img logo-dark"
+          />
+
+          <img
+            src={logoLight}
+            alt="VisionControl"
+            className="logo-box-img logo-light"
+          />
         </div>
 
         <nav className="sidebar-menu">
@@ -1106,11 +1118,15 @@ const mostrarPoste = (camara) => {
             <p>Consulta operativa de cámaras registradas en el sistema</p>
           </div>
 
-          <UserHeaderActions
-            username={username}
-            rol={rol}
-            onCerrarSesion={cerrarSesion}
-          />
+          <div className="camaras-header-tools">
+            <ThemeToggle className="camaras-theme-toggle" />
+
+            <UserHeaderActions
+              username={username}
+              rol={rol}
+              onCerrarSesion={cerrarSesion}
+            />
+          </div>
         </header>
 
         {/* =====================================================

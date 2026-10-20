@@ -16,21 +16,27 @@
 
 
 /* =========================================================
-    BOTÓN DE NOTIFICACIONES
+    BOTÓN DE NOTIFICACIONES - SOLO ÍCONO
    ========================================================= */
 
 .btn-notificaciones {
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  background: rgba(15, 23, 42, 0.65);
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
   color: #cbd5e1;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
   position: relative;
 }
 
@@ -41,10 +47,24 @@
 
 .btn-notificaciones:hover {
   color: #ffffff;
-  background: rgba(37, 99, 235, 0.38);
-  box-shadow: 0 0 18px rgba(0, 145, 255, 0.35);
+  background: transparent;
+  box-shadow: none;
+  transform: scale(1.1);
 }
 
+/* Color del ícono en modo claro */
+body.theme-light .btn-notificaciones {
+  color: #475569;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+body.theme-light .btn-notificaciones:hover {
+  color: #0f172a;
+  background: transparent;
+  box-shadow: none;
+}
 
 /* =========================================================
     CONTADOR ROJO DE NOTIFICACIONES NUEVAS
